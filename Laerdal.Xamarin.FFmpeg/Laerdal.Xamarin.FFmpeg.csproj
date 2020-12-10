@@ -1,0 +1,17 @@
+<Project Sdk="MSBuild.Sdk.Extras/2.0.54">
+
+    <PropertyGroup>
+        <TargetFrameworks>netstandard2.0;monoandroid10.0;xamarin.ios10</TargetFrameworks>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <Compile Remove="Android\**\*.cs" Condition=" !$(TargetFramework.StartsWith('monoandroid')) " />
+        <Compile Remove="iOS\**\*.cs" Condition=" !$(TargetFramework.StartsWith('xamarin.ios')) " />
+        <Compile Remove="NetStandard\**\*.cs" Condition=" !$(TargetFramework.StartsWith('netstandard')) " />
+    </ItemGroup>
+
+    <ItemGroup> 
+        <PackageReference Include="Laerdal.Xamarin.FFmpeg.iOS.Full" Version="4.4.9" Condition=" '$(TargetFramework)' == 'Xamarin.iOS10' " />
+        <PackageReference Include="Laerdal.Xamarin.FFmpeg.Android.Full" Version="4.4.9" Condition="'$(TargetFramework)' == 'MonoAndroid10.0'" />
+    </ItemGroup>
+</Project>
