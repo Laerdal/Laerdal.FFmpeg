@@ -40,8 +40,8 @@
     </PropertyGroup>
     
     <ItemGroup>
-        <None Include="../icon.png" Pack="true" PackagePath="\"/>
-        <None Include="../LICENSE" Pack="true" PackagePath="\"/>
+        <None Include="../icon.png" Pack="true" PackagePath="\" />
+        <None Include="../LICENSE" Pack="true" PackagePath="\" />
     </ItemGroup>
     
     <PropertyGroup>
@@ -60,11 +60,11 @@
 
         <PackageTags>Xamarin;FFmpeg;iOS;Android;Shared;$(NugetPackageVariantName)</PackageTags>
 
-        <PackageProjectUrl>https://github.com/Laerdal/Laerdal.Xamarin.FFmpeg.iOS</PackageProjectUrl>
-        <RepositoryUrl>https://github.com/Laerdal/Laerdal.Xamarin.FFmpeg.iOS.git</RepositoryUrl>
+        <PackageProjectUrl>https://github.com/Laerdal/Laerdal.Xamarin.FFmpeg</PackageProjectUrl>
+        <RepositoryUrl>https://github.com/Laerdal/Laerdal.Xamarin.FFmpeg.git</RepositoryUrl>
         <RepositoryType>git</RepositoryType>
 
-        <PackageVersion>1.0.0</PackageVersion>
+        <PackageVersion>1.0.0</PackageVersion> 
 
         <PackageOutputPath Condition=" '$(PackageOutputPath)' == '' ">../$(RootNamespace).Output</PackageOutputPath>
     </PropertyGroup>

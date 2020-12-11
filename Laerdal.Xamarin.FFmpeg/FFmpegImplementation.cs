@@ -15,7 +15,7 @@ namespace Laerdal.Xamarin.FFmpeg
         /// <param name="arguments">FFmpeg command</param>
         /// <returns>zero on successful execution, 255 on user cancel and non-zero on error</returns>
         public abstract int Execute(string arguments);
-
+        
         /// <summary>
         /// Synchronously executes FFmpeg with arguments provided.
         /// </summary>

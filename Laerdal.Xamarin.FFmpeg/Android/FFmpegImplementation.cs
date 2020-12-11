@@ -11,7 +11,7 @@ namespace Laerdal.Xamarin.FFmpeg
         {
             return Android.FFmpeg.Execute(arguments);
         }
-        
+
         public override int Execute(string[] arguments)
         {
             return Android.FFmpeg.Execute(arguments);

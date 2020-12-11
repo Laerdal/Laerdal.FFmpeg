@@ -26,6 +26,7 @@ build_package()
         msbuild $nuget_project_csproj -t:Rebuild -restore:True -p:Configuration=Release -p:NugetPackageVariantName=$nuget_package_variant_name -p:PackageVersion=$version -p:ExternalLibraries="$external_libraries"
     fi
 }
+
 # see https://github.com/tanersener/mobile-ffmpeg for more information
 time build_package Audio "lame libilbc libvorbis opencore-amr opus shine soxr speex twolame vo-amrwbenc wavpack"
 time build_package Full "fontconfig freetype fribidi gmp gnutls kvazaar lame libaom libass libiconv libilbc libtheora libvorbis libvpx libwebp libxml2 opencore-amr opus shine snappy soxr speex twolame vo-amrwbenc wavpack"
