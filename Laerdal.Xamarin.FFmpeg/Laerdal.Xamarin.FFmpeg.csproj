@@ -73,13 +73,6 @@
         <Compile Remove="Android\**\*.cs" Condition=" !$(TargetFramework.StartsWith('monoandroid')) " />
         <Compile Remove="iOS\**\*.cs" Condition=" !$(TargetFramework.StartsWith('xamarin.ios')) " />
         <Compile Remove="NetStandard\**\*.cs" Condition=" !$(TargetFramework.StartsWith('netstandard')) " />
-        <Compile Include="NetStandard\FFmpegExecution.cs" />
-        <Compile Update="FFmpegConfigImplementation.cs">
-          <SubType>Code</SubType>
-        </Compile>
-        <Compile Update="FFmpegImplementation.cs">
-          <SubType>Code</SubType>
-        </Compile>
     </ItemGroup>
 
     <ItemGroup> 
