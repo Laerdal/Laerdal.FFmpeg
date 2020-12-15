@@ -1,7 +1,13 @@
+using System;
+using Foundation;
+
 namespace Laerdal.Xamarin.FFmpeg
 {
-    public partial class LogDelegate
+    public abstract partial class LogDelegate : iOS.LogDelegate
     {
-        public iOS.LogDelegate Native { get; set; }
+        public override void LogCallback(nint executionId, int level, NSObject message)
+        {
+            OnLogReceived(executionId, message.Description, level);
+        }
     }
 }

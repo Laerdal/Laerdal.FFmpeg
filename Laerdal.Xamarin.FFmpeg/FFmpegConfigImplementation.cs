@@ -2,7 +2,7 @@ using System.Collections.Generic;
 
 namespace Laerdal.Xamarin.FFmpeg
 {
-    public abstract class BaseFFmpegConfigImplementation
+    internal abstract class BaseFFmpegConfigImplementation
     {
         /// <summary>
         /// Enables log and statistics redirection.
@@ -41,7 +41,7 @@ namespace Laerdal.Xamarin.FFmpeg
         /// <summary>
         /// Returns the last received statistics data. It is recommended to call it before starting a new execution.
         /// </summary>
-        public abstract Statistics GetLastReceivedStatistics { get; }
+        public abstract Statistics LastReceivedStatistics { get; }
 
         /// <summary>
         /// Resets last received statistics.
@@ -128,7 +128,7 @@ namespace Laerdal.Xamarin.FFmpeg
         public abstract void IgnoreSignal(int signum);
     }
     
-    public partial class FFmpegConfigImplementation : BaseFFmpegConfigImplementation
+    internal partial class FFmpegConfigImplementation : BaseFFmpegConfigImplementation
     {
         
     }

@@ -1,7 +1,7 @@
 namespace Laerdal.Xamarin.FFmpeg
 {
-    public partial class LogDelegate
+    public abstract partial class LogDelegate
     {
-        
+        protected abstract void OnLogReceived(in long executionId, string text, int levelValue);
     }
 }

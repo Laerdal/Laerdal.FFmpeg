@@ -2,7 +2,7 @@ using System.Collections.Generic;
 
 namespace Laerdal.Xamarin.FFmpeg
 {
-    public partial class FFmpegConfigImplementation
+    internal partial class FFmpegConfigImplementation
     {
         public override void EnableRedirection() => throw new System.Exception($"No FFmpeg assembly for shared .NET, Did you forget to add a reference in your native project too ?");
         public override void DisableRedirection() => throw new System.Exception($"No FFmpeg assembly for shared .NET, Did you forget to add a reference in your native project too ?");
@@ -19,14 +19,15 @@ namespace Laerdal.Xamarin.FFmpeg
         {
             set => throw new System.Exception($"No FFmpeg assembly for shared .NET, Did you forget to add a reference in your native project too ?");
         }
-        public override Statistics GetLastReceivedStatistics => throw new System.Exception($"No FFmpeg assembly for shared .NET, Did you forget to add a reference in your native project too ?");
+        
+        public override Statistics LastReceivedStatistics => throw new System.Exception($"No FFmpeg assembly for shared .NET, Did you forget to add a reference in your native project too ?");
         public override void ResetStatistics() => throw new System.Exception($"No FFmpeg assembly for shared .NET, Did you forget to add a reference in your native project too ?");
         public override string FontconfigConfigurationPath
         {
             set => throw new System.Exception($"No FFmpeg assembly for shared .NET, Did you forget to add a reference in your native project too ?");
         }
+        
         public override void SetFontDirectory(string fontDirectoryPath, IDictionary<string, string> fontNameMapping) => throw new System.Exception($"No FFmpeg assembly for shared .NET, Did you forget to add a reference in your native project too ?");
-
         public override string PackageName => throw new System.Exception($"No FFmpeg assembly for shared .NET, Did you forget to add a reference in your native project too ?");
         public override string[] ExternalLibraries=> throw new System.Exception($"No FFmpeg assembly for shared .NET, Did you forget to add a reference in your native project too ?");
         public override string RegisterNewFFmpegPipe() => throw new System.Exception($"No FFmpeg assembly for shared .NET, Did you forget to add a reference in your native project too ?");

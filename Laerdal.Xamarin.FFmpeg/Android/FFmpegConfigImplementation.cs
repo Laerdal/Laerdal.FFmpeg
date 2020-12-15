@@ -4,12 +4,11 @@ using Android.App;
 
 namespace Laerdal.Xamarin.FFmpeg
 {
-    public partial class FFmpegConfigImplementation
+    internal partial class FFmpegConfigImplementation
     {
         public override void EnableRedirection() => Android.Config.EnableRedirection();
         public override void DisableRedirection() => Android.Config.DisableRedirection();
         
-        // TODO : Switch to an Enum
         public override int LogLevel 
         {
             get => Android.Config.LogLevel.Value;
@@ -23,7 +22,7 @@ namespace Laerdal.Xamarin.FFmpeg
         {
             set => Android.Config.EnableStatisticsCallback(value);
         }
-        public override Statistics GetLastReceivedStatistics => new Statistics(Android.Config.LastReceivedStatistics);
+        public override Statistics LastReceivedStatistics => new Statistics(Android.Config.LastReceivedStatistics);
         public override void ResetStatistics() => Android.Config.ResetStatistics();
         public override string FontconfigConfigurationPath
         {

@@ -1,12 +1,13 @@
+using System;
 using Laerdal.Xamarin.FFmpeg.Android;
 
 namespace Laerdal.Xamarin.FFmpeg
 {
-    public partial class LogDelegate : Java.Lang.Object, ILogCallback
+    public abstract partial class LogDelegate : Java.Lang.Object, ILogCallback
     {
         public void Apply(LogMessage p0)
         {
-            throw new System.NotImplementedException();
+            OnLogReceived(p0.ExecutionId, p0.Text, p0.Level.Value);
         }
     }
 }

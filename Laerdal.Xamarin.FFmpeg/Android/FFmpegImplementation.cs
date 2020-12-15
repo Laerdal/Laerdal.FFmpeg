@@ -3,7 +3,7 @@ using System.Linq;
 
 namespace Laerdal.Xamarin.FFmpeg
 {
-    public partial class FFmpegImplementation
+    internal partial class FFmpegImplementation
     {
         public override string Version => Android.Config.Version;
         

@@ -1,7 +1,10 @@
 namespace Laerdal.Xamarin.FFmpeg
 {
-    public partial class StatisticsDelegate
+    public abstract partial class StatisticsDelegate : iOS.StatisticsDelegate
     {
-        public iOS.StatisticsDelegate Native { get; set; }
+        public override void StatisticsCallback(iOS.Statistics statistics)
+        {
+            OnStatisticsReceived(new Statistics(statistics));
+        }
     }
 }

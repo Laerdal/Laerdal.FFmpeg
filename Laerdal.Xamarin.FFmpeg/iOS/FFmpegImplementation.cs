@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace Laerdal.Xamarin.FFmpeg
 {
-    public partial class FFmpegImplementation : BaseFFmpegImplementation
+    internal partial class FFmpegImplementation
     {
         public override string Version => iOS.Constants.MOBILE_FFMPEG_VERSION.ToString();
 

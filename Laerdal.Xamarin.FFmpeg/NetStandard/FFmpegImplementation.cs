@@ -2,7 +2,7 @@ using System.Collections.Generic;
 
 namespace Laerdal.Xamarin.FFmpeg
 {
-    public partial class FFmpegImplementation : BaseFFmpegImplementation
+    internal partial class FFmpegImplementation
     {
         public override string Version => throw new System.Exception(
             $"No FFmpeg assembly for shared .NET, Did you forget to add a reference in your native project too ?");

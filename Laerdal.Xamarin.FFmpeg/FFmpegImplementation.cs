@@ -2,7 +2,7 @@ using System.Collections.Generic;
 
 namespace Laerdal.Xamarin.FFmpeg
 {
-    public abstract class BaseFFmpegImplementation
+    internal abstract class BaseFFmpegImplementation
     {
         /// <summary>
         /// Global library version
@@ -37,7 +37,7 @@ namespace Laerdal.Xamarin.FFmpeg
         public abstract IEnumerable<FFmpegExecution> ListExecutions();
     }
     
-    public partial class FFmpegImplementation : BaseFFmpegImplementation
+    internal partial class FFmpegImplementation : BaseFFmpegImplementation
     {
     }
 }

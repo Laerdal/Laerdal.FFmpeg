@@ -1,6 +1,6 @@
 namespace Laerdal.Xamarin.FFmpeg
 {
-    public partial class StatisticsDelegate
+    public abstract partial class StatisticsDelegate
     {
         
     }
