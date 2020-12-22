@@ -15,12 +15,12 @@ if [ ! -f "$github_info_file" ]; then
     curl -s $github_info_file_url > $github_info_file
 fi
 
-build_revision=`date +%m%d.%H%M%S`
-
 usage(){
     echo "### Wrong parameters ###"
     echo "usage: ./build.sh [-r build_revision]"
 }
+
+build_revision=`date +%m%d.%H%M%S`
 
 while [ "$1" != "" ]; do
     case $1 in
@@ -36,10 +36,16 @@ while [ "$1" != "" ]; do
     shift
 done
 
+# Set version
 github_tag_name=`cat $github_info_file | grep '"tag_name":' | sed -E 's/.*"([^"]+)".*/\1/' | sed 's/v//'`
 github_short_version=`echo "$github_tag_name" | sed 's/.LTS//'`
 build_version=$github_short_version.$build_revision
 echo "##vso[build.updatebuildnumber]$build_version"
+if [ -z "$github_short_version" ]; then
+    echo "Failed : Could not read Version"
+    cat $github_info_file
+    exit 1
+fi
 
 nuget_project_folder="Laerdal.Xamarin.FFmpeg"
 nuget_project_csproj="$nuget_project_folder/Laerdal.Xamarin.FFmpeg.csproj"
