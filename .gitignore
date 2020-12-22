@@ -352,3 +352,5 @@ Laerdal.Xamarin.FFmpeg.Android/Jars/*
 
 Laerdal.Xamarin.FFmpeg.Android.Output/
 Laerdal.Xamarin.FFmpeg.Android.Source/
+
+*.info.json

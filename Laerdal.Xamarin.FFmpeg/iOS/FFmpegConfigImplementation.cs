@@ -37,7 +37,7 @@ namespace Laerdal.Xamarin.FFmpeg
 
         public override string PackageName => iOS.MobileFFmpegConfig.PackageName;
         public override string[] ExternalLibraries => iOS.MobileFFmpegConfig.ExternalLibraries.Select(o => o.Description).ToArray();
-        public override string RegisterNewFFmpegPipe() => iOS.MobileFFmpegConfig.RegisterNewFFmpegPipe;
+        public override string RegisterNewFFmpegPipe() => iOS.MobileFFmpegConfig.RegisterNewFFmpegPipe();
         public override void CloseFFmpegPipe(string ffmpegPipePath) => iOS.MobileFFmpegConfig.CloseFFmpegPipe(ffmpegPipePath);
         public override string BuildDate => iOS.MobileFFmpegConfig.BuildDate;
         public override string Version => iOS.MobileFFmpegConfig.Version;

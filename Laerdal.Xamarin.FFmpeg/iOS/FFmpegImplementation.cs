@@ -6,7 +6,7 @@ namespace Laerdal.Xamarin.FFmpeg
 {
     internal partial class FFmpegImplementation
     {
-        public override string Version => iOS.Constants.MOBILE_FFMPEG_VERSION.ToString();
+        public override string Version => iOS.MobileFFmpegConfig.FFmpegVersion;
 
         public override int Execute(string arguments)
         {

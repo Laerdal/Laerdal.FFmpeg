@@ -76,7 +76,7 @@
     </ItemGroup>
 
     <ItemGroup> 
-        <PackageReference Include="Laerdal.Xamarin.FFmpeg.iOS.$(NugetPackageVariantName)" Version="4.4.16" Condition=" '$(TargetFramework)' == 'Xamarin.iOS10' " />
-        <PackageReference Include="Laerdal.Xamarin.FFmpeg.Android.$(NugetPackageVariantName)" Version="4.4.18" Condition="'$(TargetFramework)' == 'MonoAndroid10.0'" />
+        <PackageReference Include="Laerdal.Xamarin.FFmpeg.iOS.$(NugetPackageVariantName)" Version="4.4.41" Condition=" '$(TargetFramework)' == 'Xamarin.iOS10' " />
+        <PackageReference Include="Laerdal.Xamarin.FFmpeg.Android.$(NugetPackageVariantName)" Version="4.4.19" Condition="'$(TargetFramework)' == 'MonoAndroid10.0'" />
     </ItemGroup>
 </Project>
