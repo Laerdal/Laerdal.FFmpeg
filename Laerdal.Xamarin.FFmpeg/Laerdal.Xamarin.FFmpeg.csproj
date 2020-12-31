@@ -75,8 +75,10 @@
         <Compile Remove="NetStandard\**\*.cs" Condition=" !$(TargetFramework.StartsWith('netstandard')) " />
     </ItemGroup>
 
-    <ItemGroup> 
-        <PackageReference Include="Laerdal.Xamarin.FFmpeg.iOS.$(NugetPackageVariantName)" Version="4.4.43" Condition=" '$(TargetFramework)' == 'Xamarin.iOS10' " />
-        <PackageReference Include="Laerdal.Xamarin.FFmpeg.Android.$(NugetPackageVariantName)" Version="4.4.20" Condition="'$(TargetFramework)' == 'MonoAndroid10.0'" />
+    <ItemGroup Condition="'$(TargetFramework)' == 'Xamarin.iOS10'">
+        <PackageReference Include="Laerdal.Xamarin.FFmpeg.iOS.$(NugetPackageVariantName)" Version="4.4.43" />
+    </ItemGroup>
+    <ItemGroup Condition="'$(TargetFramework)' == 'MonoAndroid10.0'">
+        <PackageReference Include="Laerdal.Xamarin.FFmpeg.Android.$(NugetPackageVariantName)" Version="4.4.21" />
     </ItemGroup>
 </Project>
