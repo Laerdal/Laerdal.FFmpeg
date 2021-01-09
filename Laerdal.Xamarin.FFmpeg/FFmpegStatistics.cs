@@ -1,6 +1,6 @@
 namespace Laerdal.Xamarin.FFmpeg
 {
-    public abstract class BaseStatistics
+    public abstract class BaseFFmpegStatistics
     {
         public abstract double Bitrate { get; }
         public abstract  long Size { get; }
@@ -12,7 +12,7 @@ namespace Laerdal.Xamarin.FFmpeg
         public abstract int VideoFrameNumber { get; }
     }
     
-    public partial class Statistics : BaseStatistics
+    public partial class FFmpegStatistics : BaseFFmpegStatistics
     {
         
     }

@@ -1,7 +1,9 @@
 using System;
+using Foundation;
 
 namespace Laerdal.Xamarin.FFmpeg
 {
+	[Preserve (AllMembers = true)]
     public partial class FFmpegExecution
     {
         public FFmpegExecution(iOS.FFmpegExecution fFmpegExecution)

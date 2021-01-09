@@ -56,21 +56,21 @@ namespace Laerdal.Xamarin.FFmpeg
         /// <summary>
         /// Sets a LogDelegate. logCallback method inside LogDelegate is used to redirect logs.
         /// </summary>
-        public static LogDelegate LogDelegate { 
-            set => FFmpegConfigImplementation.LogDelegate = value;
+        public static FFmpegLogDelegate FFmpegLogDelegate { 
+            set => FFmpegConfigImplementation.FFmpegLogDelegate = value;
         }
         
         /// <summary>
         /// Sets a StatisticsDelegate. statisticsCallback method inside StatisticsDelegate is used to redirect statistics.
         /// </summary>
-        public static StatisticsDelegate StatisticsDelegate { 
-            set => FFmpegConfigImplementation.StatisticsDelegate = value;
+        public static FFmpegStatisticsDelegate FFmpegStatisticsDelegate { 
+            set => FFmpegConfigImplementation.FFmpegStatisticsDelegate = value;
         }
 
         /// <summary>
         /// Returns the last received statistics data. It is recommended to call it before starting a new execution.
         /// </summary>
-        public static Statistics LastReceivedStatistics => FFmpegConfigImplementation.LastReceivedStatistics;
+        public static FFmpegStatistics LastReceivedFFmpegStatistics => FFmpegConfigImplementation.LastReceivedFFmpegStatistics;
 
         /// <summary>
         /// Resets last received statistics.

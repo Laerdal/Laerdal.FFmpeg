@@ -348,9 +348,4 @@ healthchecksdb
 # Backup folder for Package Reference Convert tool in Visual Studio 2017
 MigrationBackup/
 
-Laerdal.Xamarin.FFmpeg.Android/Jars/*
-
-Laerdal.Xamarin.FFmpeg.Android.Output/
-Laerdal.Xamarin.FFmpeg.Android.Source/
-
-*.info.json
+Laerdal.Xamarin.FFmpeg.Output/

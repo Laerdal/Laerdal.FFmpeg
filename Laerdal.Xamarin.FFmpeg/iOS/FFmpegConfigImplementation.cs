@@ -4,6 +4,7 @@ using Foundation;
 
 namespace Laerdal.Xamarin.FFmpeg
 {
+	[Preserve (AllMembers = true)]
     internal partial class FFmpegConfigImplementation
     {
         public override void EnableRedirection() => iOS.MobileFFmpegConfig.EnableRedirection();
@@ -13,15 +14,15 @@ namespace Laerdal.Xamarin.FFmpeg
             get => iOS.MobileFFmpegConfig.LogLevel;
             set => iOS.MobileFFmpegConfig.SetLogLevel(value);
         }
-        public override LogDelegate LogDelegate
+        public override FFmpegLogDelegate FFmpegLogDelegate
         {
             set => iOS.MobileFFmpegConfig.SetLogDelegate(value);
         }
-        public override StatisticsDelegate StatisticsDelegate
+        public override FFmpegStatisticsDelegate FFmpegStatisticsDelegate
         {
             set => iOS.MobileFFmpegConfig.SetStatisticsDelegate(value);
         }
-        public override Statistics LastReceivedStatistics => new Statistics(iOS.MobileFFmpegConfig.LastReceivedStatistics);
+        public override FFmpegStatistics LastReceivedFFmpegStatistics => new FFmpegStatistics(iOS.MobileFFmpegConfig.LastReceivedStatistics);
         public override void ResetStatistics() => iOS.MobileFFmpegConfig.ResetStatistics();
         public override string FontconfigConfigurationPath
         {

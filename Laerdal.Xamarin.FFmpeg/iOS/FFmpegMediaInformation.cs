@@ -1,12 +1,16 @@
+using Foundation;
+using Laerdal.Xamarin.FFmpeg.iOS;
+
 namespace Laerdal.Xamarin.FFmpeg
 {
-    public partial class MediaInformation
+	[Preserve (AllMembers = true)]
+    public partial class FFmpegMediaInformation
     {
-        public Laerdal.Xamarin.FFmpeg.iOS.MediaInformation NativeMediaInformation { get; }
+        public iOS.MediaInformation NativeMediaInformation { get; }
         
-        public MediaInformation(string path) : base(path) 
+        public FFmpegMediaInformation(string path) : base(path) 
         {
-            NativeMediaInformation = iOS.MobileFFprobe.GetMediaInformation(path);
+            NativeMediaInformation = MobileFFprobe.GetMediaInformation(path);
         }
 
         public override string FileName => NativeMediaInformation.Filename;

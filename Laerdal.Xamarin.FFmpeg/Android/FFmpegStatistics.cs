@@ -1,6 +1,6 @@
 namespace Laerdal.Xamarin.FFmpeg
 {
-    public partial class Statistics
+    public partial class FFmpegStatistics
     {
         public override double Bitrate => NativeStatistics.Bitrate;
         public override long Size => NativeStatistics.Size;
@@ -12,7 +12,7 @@ namespace Laerdal.Xamarin.FFmpeg
         public override int VideoFrameNumber => NativeStatistics.VideoFrameNumber;
         public Android.Statistics NativeStatistics { get; }
         
-        public Statistics(Android.Statistics statistics)
+        public FFmpegStatistics(Android.Statistics statistics)
         {
             NativeStatistics = statistics;
         }

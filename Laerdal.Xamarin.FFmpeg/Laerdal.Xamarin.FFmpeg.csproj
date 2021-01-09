@@ -1,84 +1,86 @@
 <Project Sdk="MSBuild.Sdk.Extras/2.0.54">
 
+    <!-- FFMPEG VARIABLES -->
     <PropertyGroup>
-        <TargetFrameworks>netstandard2.0;monoandroid10.0;xamarin.ios10</TargetFrameworks>
+        <NugetPackageVariantName>Full</NugetPackageVariantName>
+        <ExternalLibraries>-</ExternalLibraries>
     </PropertyGroup>
 
+    <!-- SHARED -->
     <PropertyGroup>
-        <Configuration>Release</Configuration>
-        <Configurations>Release</Configurations>
-        <Platform>AnyCPU</Platform>
-        <Platforms>AnyCPU</Platforms>
-
+        <TargetFrameworks>netstandard2.0;monoandroid10.0;xamarin.ios10</TargetFrameworks>
+        <Optimize>true</Optimize>
         <NeutralLanguage>en</NeutralLanguage>
         <LangVersion>8</LangVersion>
         <DebugSymbols>true</DebugSymbols>
-        <Optimize>true</Optimize>
         <OutputPath>bin\</OutputPath>
         <ErrorReport>prompt</ErrorReport>
         <WarningLevel>4</WarningLevel>
         <PackOnBuild>true</PackOnBuild>
         <OutputType>Library</OutputType>
+    </PropertyGroup>
 
-        <Authors>François Raminosona, Laerdal</Authors>
-        <Copyright>François Raminosona, Laerdal</Copyright>
-        <Owners>François Raminosona, Laerdal</Owners>
+    <PropertyGroup>
+        <RootNamespace>Laerdal.Xamarin.FFmpeg</RootNamespace>
 
+        <PackageId>Laerdal.Xamarin.FFmpeg.$(NugetPackageVariantName)</PackageId>
+        <PackageTags>Xamarin;FFmpeg;$(NugetPackageVariantName)</PackageTags>
+        <PackageDescription>Xamarin wrapper around mobile-ffmpeg for Android and iOS. External libraries: $(ExternalLibraries). Based on https://github.com/tanersener/mobile-ffmpeg</PackageDescription>
+        <PackageProjectUrl>https://github.com/Laerdal/Laerdal.Xamarin.FFmpeg</PackageProjectUrl>
+        <PackageVersion>1.0.0</PackageVersion>
+        <PackageOutputPath>../$(RootNamespace).Output</PackageOutputPath>
+        <PackageIcon>icon.png</PackageIcon>
+        <PackageLicenseFile>LICENSE</PackageLicenseFile>
+
+        <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
         <SymbolPackageFormat>snupkg</SymbolPackageFormat>
-        <IncludeSource>True</IncludeSource>
-        <IncludeSymbols>True</IncludeSymbols>
-        <PublishRepositoryUrl>true</PublishRepositoryUrl>
         <!-- sourcelink: Include PDB in the built .nupkg -->
         <AllowedOutputExtensionsInPackageBuildOutputFolder>$(AllowedOutputExtensionsInPackageBuildOutputFolder);.pdb</AllowedOutputExtensionsInPackageBuildOutputFolder>
+
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
+        <AssemblyName>Laerdal.Xamarin.FFmpeg</AssemblyName>
+
+        <Title>Laerdal.Xamarin.FFmpeg.$(NugetPackageVariantName)</Title>
+        <Summary>Xamarin FFmpeg $(NugetPackageVariantName)</Summary>
+        <Description>Xamarin wrapper around mobile-ffmpeg for Android and iOS. External libraries: $(ExternalLibraries). Based on https://github.com/tanersener/mobile-ffmpeg</Description>
+        <Authors>François Raminosona, Laerdal</Authors>
+        <Owners>François Raminosona, Laerdal</Owners>
+        <Copyright>François Raminosona, Laerdal</Copyright>
+        <RepositoryUrl>https://github.com/Laerdal/Laerdal.Xamarin.FFmpeg.git</RepositoryUrl>
+        <PublishRepositoryUrl>true</PublishRepositoryUrl>
+        <RepositoryType>git</RepositoryType>
+
+        <IncludeSource>True</IncludeSource>
+        <IncludeSymbols>True</IncludeSymbols>
+
         <!-- see : https://cezarypiatek.github.io/post/managing-output-in-sdk-projects/ -->
         <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
         <!-- sourcelink: Embed source files that are not tracked by the source control manager to the PDB -->
         <EmbedUntrackedSources>true</EmbedUntrackedSources>
-        <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-        <PackageIcon>icon.png</PackageIcon>
-        <PackageLicenseFile>LICENSE</PackageLicenseFile>
+        <!-- warning MSB9004: ManifestResourceWithNoCulture item type is deprecated. Emit EmbeddedResource items instead, with metadata WithCulture='false', Type='Resx', and optional LogicalName. -->
+        <MSBuildWarningsAsMessages>$(MSBuildWarningsAsMessages);MSB9004</MSBuildWarningsAsMessages>
     </PropertyGroup>
     
     <ItemGroup>
         <None Include="../icon.png" Pack="true" PackagePath="\" />
         <None Include="../LICENSE" Pack="true" PackagePath="\" />
     </ItemGroup>
-    
-    <PropertyGroup>
-        <NugetPackageVariantName>Full</NugetPackageVariantName>
-        <ExternalLibraries>-</ExternalLibraries>
-
-        <RootNamespace>Laerdal.Xamarin.FFmpeg</RootNamespace>
-
-        <AssemblyName>Laerdal.Xamarin.FFmpeg.$(NugetPackageVariantName)</AssemblyName>
-        <PackageId>Laerdal.Xamarin.FFmpeg.$(NugetPackageVariantName)</PackageId>
-        <Summary>Xamarin FFmpeg Shared, iOS and Android $(NugetPackageVariantName)</Summary>
-        <Title>Laerdal.Xamarin.FFmpeg.$(NugetPackageVariantName)</Title>
-        
-        <Description>Xamarin wrapper around mobile-ffmpeg for iOS and Android. External libraries: $(ExternalLibraries). Based on https://github.com/tanersener/mobile-ffmpeg</Description>
-        <PackageDescription>Xamarin wrapper around mobile-ffmpeg for iOS and Android. External libraries: $(ExternalLibraries). Based on https://github.com/tanersener/mobile-ffmpeg</PackageDescription>
-
-        <PackageTags>Xamarin;FFmpeg;iOS;Android;Shared;$(NugetPackageVariantName)</PackageTags>
-
-        <PackageProjectUrl>https://github.com/Laerdal/Laerdal.Xamarin.FFmpeg</PackageProjectUrl>
-        <RepositoryUrl>https://github.com/Laerdal/Laerdal.Xamarin.FFmpeg.git</RepositoryUrl>
-        <RepositoryType>git</RepositoryType>
-
-        <PackageVersion>1.0.0</PackageVersion> 
-
-        <PackageOutputPath Condition=" '$(PackageOutputPath)' == '' ">../$(RootNamespace).Output</PackageOutputPath>
-    </PropertyGroup>
 
     <ItemGroup>
         <Compile Remove="Android\**\*.cs" Condition=" !$(TargetFramework.StartsWith('monoandroid')) " />
         <Compile Remove="iOS\**\*.cs" Condition=" !$(TargetFramework.StartsWith('xamarin.ios')) " />
         <Compile Remove="NetStandard\**\*.cs" Condition=" !$(TargetFramework.StartsWith('netstandard')) " />
     </ItemGroup>
-
+ 
+    <!-- INCLUDED PACKAGES -->
+    <PropertyGroup>
+        <iOSPackageVersion>4.4.43</iOSPackageVersion>
+        <AndroidPackageVersion>4.4.21</AndroidPackageVersion>
+    </PropertyGroup>
     <ItemGroup Condition="'$(TargetFramework)' == 'Xamarin.iOS10'">
-        <PackageReference Include="Laerdal.Xamarin.FFmpeg.iOS.$(NugetPackageVariantName)" Version="4.4.43" />
+        <PackageReference Include="Laerdal.Xamarin.FFmpeg.iOS.$(NugetPackageVariantName)" Version="$(iOSPackageVersion)" />
     </ItemGroup>
     <ItemGroup Condition="'$(TargetFramework)' == 'MonoAndroid10.0'">
-        <PackageReference Include="Laerdal.Xamarin.FFmpeg.Android.$(NugetPackageVariantName)" Version="4.4.21" />
+        <PackageReference Include="Laerdal.Xamarin.FFmpeg.Android.$(NugetPackageVariantName)" Version="$(AndroidPackageVersion)" />
     </ItemGroup>
 </Project>

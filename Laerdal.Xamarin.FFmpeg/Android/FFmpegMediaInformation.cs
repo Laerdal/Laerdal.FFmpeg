@@ -1,10 +1,10 @@
 namespace Laerdal.Xamarin.FFmpeg
 {
-    public partial class MediaInformation
+    public partial class FFmpegMediaInformation
     {
         public Laerdal.Xamarin.FFmpeg.Android.MediaInformation NativeMediaInformation { get; }
         
-        public MediaInformation(string path) : base(path)
+        public FFmpegMediaInformation(string path) : base(path)
         {
             NativeMediaInformation = Android.FFprobe.GetMediaInformation(path);
         }

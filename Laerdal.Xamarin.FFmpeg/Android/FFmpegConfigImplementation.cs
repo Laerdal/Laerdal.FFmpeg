@@ -14,15 +14,15 @@ namespace Laerdal.Xamarin.FFmpeg
             get => Android.Config.LogLevel.Value;
             set => Android.Config.LogLevel = Android.Level.From(value);
         }
-        public override LogDelegate LogDelegate
+        public override FFmpegLogDelegate FFmpegLogDelegate
         {
             set => Android.Config.EnableLogCallback(value);
         }
-        public override StatisticsDelegate StatisticsDelegate
+        public override FFmpegStatisticsDelegate FFmpegStatisticsDelegate
         {
             set => Android.Config.EnableStatisticsCallback(value);
         }
-        public override Statistics LastReceivedStatistics => new Statistics(Android.Config.LastReceivedStatistics);
+        public override FFmpegStatistics LastReceivedFFmpegStatistics => new FFmpegStatistics(Android.Config.LastReceivedStatistics);
         public override void ResetStatistics() => Android.Config.ResetStatistics();
         public override string FontconfigConfigurationPath
         {

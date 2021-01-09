@@ -1,9 +1,11 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Foundation;
 
 namespace Laerdal.Xamarin.FFmpeg
 {
+	[Preserve (AllMembers = true)]
     internal partial class FFmpegImplementation
     {
         public override string Version => iOS.MobileFFmpegConfig.FFmpegVersion;
@@ -20,7 +22,7 @@ namespace Laerdal.Xamarin.FFmpeg
 
         public override void Cancel(long executionId)
         {
-            iOS.MobileFFmpeg.Cancel(new nint(executionId));
+            iOS.MobileFFmpeg.Cancel(executionId);
         }
 
         public override IEnumerable<FFmpegExecution> ListExecutions()

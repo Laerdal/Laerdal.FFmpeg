@@ -11,16 +11,16 @@ namespace Laerdal.Xamarin.FFmpeg
             get => throw new System.Exception($"No FFmpeg assembly for shared .NET, Did you forget to add a reference in your native project too ?");
             set => throw new System.Exception($"No FFmpeg assembly for shared .NET, Did you forget to add a reference in your native project too ?");
         }
-        public override LogDelegate LogDelegate
+        public override FFmpegLogDelegate FFmpegLogDelegate
         {
             set => throw new System.Exception($"No FFmpeg assembly for shared .NET, Did you forget to add a reference in your native project too ?");
         }
-        public override StatisticsDelegate StatisticsDelegate
+        public override FFmpegStatisticsDelegate FFmpegStatisticsDelegate
         {
             set => throw new System.Exception($"No FFmpeg assembly for shared .NET, Did you forget to add a reference in your native project too ?");
         }
         
-        public override Statistics LastReceivedStatistics => throw new System.Exception($"No FFmpeg assembly for shared .NET, Did you forget to add a reference in your native project too ?");
+        public override FFmpegStatistics LastReceivedFFmpegStatistics => throw new System.Exception($"No FFmpeg assembly for shared .NET, Did you forget to add a reference in your native project too ?");
         public override void ResetStatistics() => throw new System.Exception($"No FFmpeg assembly for shared .NET, Did you forget to add a reference in your native project too ?");
         public override string FontconfigConfigurationPath
         {

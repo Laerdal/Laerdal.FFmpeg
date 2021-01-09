@@ -1,8 +1,11 @@
 using System;
+using Foundation;
+using Laerdal.Xamarin.FFmpeg.iOS;
 
 namespace Laerdal.Xamarin.FFmpeg
 {
-    public partial class Statistics
+	[Preserve (AllMembers = true)]
+    public partial class FFmpegStatistics
     {
         public override double Bitrate => NativeStatistics.Bitrate;
         public override long Size => NativeStatistics.Size;
@@ -14,7 +17,7 @@ namespace Laerdal.Xamarin.FFmpeg
         public override int VideoFrameNumber => NativeStatistics.VideoFrameNumber;
         public iOS.Statistics NativeStatistics { get; }
 
-        public Statistics(iOS.Statistics nativeStatistics)
+        public FFmpegStatistics(iOS.Statistics nativeStatistics)
         {
             NativeStatistics = nativeStatistics;
         }

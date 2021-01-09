@@ -1,10 +1,10 @@
 namespace Laerdal.Xamarin.FFmpeg
 {
-    public abstract class BaseMediaInformation
+    public abstract class BaseFFmpegMediaInformation
     {
         public string Path { get; }
 
-        protected BaseMediaInformation(string path)
+        protected BaseFFmpegMediaInformation(string path)
         {
             Path = path;
         }
@@ -19,7 +19,7 @@ namespace Laerdal.Xamarin.FFmpeg
     }
 
 
-    public partial class MediaInformation : BaseMediaInformation
+    public partial class FFmpegMediaInformation : BaseFFmpegMediaInformation
     {
     }
 }

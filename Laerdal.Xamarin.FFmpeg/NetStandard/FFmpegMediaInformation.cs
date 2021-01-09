@@ -1,6 +1,6 @@
 namespace Laerdal.Xamarin.FFmpeg
 {
-    public partial class MediaInformation
+    public partial class FFmpegMediaInformation
     {
         
         public override string FileName => throw new System.Exception(
@@ -24,7 +24,7 @@ namespace Laerdal.Xamarin.FFmpeg
         public override string StartTime => throw new System.Exception(
             $"No FFmpeg assembly for shared .NET, Did you forget to add a reference in your native project too ?");
         
-        public MediaInformation(string path) : base(path) 
+        public FFmpegMediaInformation(string path) : base(path) 
         {
             throw new System.Exception($"No FFmpeg assembly for shared .NET, Did you forget to add a reference in your native project too ?");
         }

@@ -3,7 +3,7 @@ using Laerdal.Xamarin.FFmpeg.Android;
 
 namespace Laerdal.Xamarin.FFmpeg
 {
-    public abstract partial class LogDelegate : Java.Lang.Object, ILogCallback
+    public abstract partial class FFmpegLogDelegate : Java.Lang.Object, ILogCallback
     {
         public void Apply(LogMessage p0)
         {

@@ -1,6 +1,6 @@
 namespace Laerdal.Xamarin.FFmpeg
 {
-    public partial class Statistics
+    public partial class FFmpegStatistics
     {
         public override double Bitrate => throw new System.Exception(
             $"No FFmpeg assembly for shared .NET, Did you forget to add a reference in your native project too ?");
