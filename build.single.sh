@@ -50,7 +50,7 @@ github_info_file="$github_repo_owner.$github_repo.$github_release_id.info.json"
 
 if [ ! -f "$github_info_file" ]; then
     echo ""
-    echo "### DOWNLOADING GITHUB INFORMATION ###"
+    echo "### DOWNLOAD GITHUB INFORMATION ###"
     echo ""
     github_info_file_url=https://api.github.com/repos/$github_repo_owner/$github_repo/releases/$github_release_id
     echo "Downloading $github_info_file_url to $github_info_file"

@@ -34,7 +34,7 @@ The native Android and iOS libraries can be found here: <https://github.com/tane
 
 ## How to use
 
-Simply add the Nuget package you want to **ALL** your Xamarin projects (Shared, iOS and Android)
+Simply add the Nuget package you want into **ALL** of your Xamarin projects (Shared, iOS and Android). On iOS it will depend on the iOS package and on iOS it will depend on the Android package.
 
 > **Known issue:**
 >
@@ -45,7 +45,7 @@ Simply add the Nuget package you want to **ALL** your Xamarin projects (Shared, 
 > To fix it you can either :
 >
 > - Switch to `<MtouchLink>SdkOnly</MtouchLink>` or `<MtouchLink>None</MtouchLink>`
-> - Add `<MTouchExtraArgs>-optimize=-remove-dynamic-registrar</MTouchExtraArgs>` to the .csproj of your iOS project
+> - Add `<MTouchExtraArgs>--optimize=-remove-dynamic-registrar</MTouchExtraArgs>` to the .csproj of your iOS project
 >
 > PS. If you know how I could fix it please PR or send a message :)
 
