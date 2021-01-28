@@ -1,10 +1,11 @@
 #!/bin/bash
 
 usage(){
-    echo "usage: ./build.single.sh [-p|--package [audio|full|full-gpl|https|https-gpl|min|min-gpl|video]] [-r|--revision build_revision] [-v|--verbose]"
+    echo "usage: ./build.single.sh [-p|--package [audio|full|full-gpl|https|https-gpl|min|min-gpl|video]] [-r|--revision build_revision] [-c|--clean-output] [-v|--verbose] [-o|--output-path path]"
     echo "parameters:"
     echo "  -p | --package [audio|full|full-gpl|https|https-gpl|min|min-gpl|video]    REQUIRED, See https://github.com/tanersener/mobile-ffmpeg for more information"
     echo "  -r | --revision [build_revision]                                          Sets the revision number, default = mdd.hMMSS"
+    echo "  -c | --clean-output                                                       Cleans the output before building"
     echo "  -v | --verbose                                                            Enable verbose build details from msbuild tasks"
     echo "  -h | --help                                                               Prints this message"
     echo
@@ -14,6 +15,8 @@ while [ "$1" != "" ]; do
     case $1 in
         -p | --package )        shift
                                 package_variant=$1
+                                ;;
+        -c | --clean-output )   clean_output=1
                                 ;;
         -r | --revision )       shift
                                 build_revision=$1
@@ -100,7 +103,7 @@ nuget_variant="$package_variant"
 [ "$package_variant" = "video" ] && nuget_variant="Video"
 
 nuget_filename="$nuget_project_name.$nuget_variant.$build_version.nupkg"
-nuget_output_file="$nuget_output_folder/$nuget_filename"
+nuget_output_file="$nuget_output_folder/$nuget_variant/$nuget_filename"
 
 # Generates variables
 echo "build_version = $build_version"
@@ -121,6 +124,14 @@ echo "nuget_output_folder = $nuget_output_folder"
 echo "nuget_project_name = $nuget_project_name"
 echo "nuget_csproj_path = $nuget_csproj_path"
 echo "nuget_filename = $nuget_filename"
+
+if [ "$clean_output" = "1" ]; then
+    echo
+    echo "### CLEAN OUTPUT ###"
+    echo
+    rm -rf $nuget_output_folder/$nuget_variant
+    echo "Deleted : $nuget_output_folder/$nuget_variant"
+fi
 
 echo ""
 echo "### FIND NUGET VERSIONS ###"

@@ -28,7 +28,7 @@
         <PackageDescription>Xamarin wrapper around mobile-ffmpeg for Android and iOS. External libraries: $(ExternalLibraries). Based on https://github.com/tanersener/mobile-ffmpeg</PackageDescription>
         <PackageProjectUrl>https://github.com/Laerdal/Laerdal.Xamarin.FFmpeg</PackageProjectUrl>
         <PackageVersion>1.0.0</PackageVersion>
-        <PackageOutputPath>../$(RootNamespace).Output</PackageOutputPath>
+        <PackageOutputPath>../$(RootNamespace).Output/$(NugetPackageVariantName)</PackageOutputPath>
         <PackageIcon>icon.png</PackageIcon>
         <PackageLicenseFile>LICENSE</PackageLicenseFile>
 

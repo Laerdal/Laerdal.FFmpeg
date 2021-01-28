@@ -4,12 +4,13 @@ nuget_project_name="Laerdal.Xamarin.FFmpeg"
 nuget_output_folder="$nuget_project_name.Output"
 
 usage(){
-    echo "usage: ./build.sh [-p|--package [audio|full|full-gpl|https|https-gpl|min|min-gpl|video]] [-r|--revision build_revision] [-c|--clean-output] [-v|--verbose]"
+    echo "usage: ./build.sh [-p|--package [audio|full|full-gpl|https|https-gpl|min|min-gpl|video]] [-r|--revision build_revision] [-c|--clean-output] [-v|--verbose] [-o|--output path]"
     echo "parameters:"
     echo "  -p | --package [audio|full|full-gpl|https|https-gpl|min|min-gpl|video]    Multiple -p paramaters can be added. See https://github.com/tanersener/mobile-ffmpeg for more information"
     echo "  -r | --revision [build_revision]                                          Sets the revision number, default = mdd.hMMSS"
     echo "  -c | --clean-output                                                       Cleans the output before building"
     echo "  -v | --verbose                                                            Enable verbose build details from msbuild tasks"
+    echo "  -o | --output [path]                                                      Output path"
     echo "  -h | --help                                                               Prints this message"
     echo
 }
@@ -18,6 +19,9 @@ while [ "$1" != "" ]; do
     case $1 in
         -p | --package )        shift
                                 package_variants="${package_variants} $1"
+                                ;;
+        -o | --output )         shift
+                                output_path=$1
                                 ;;
         -r | --revision )       shift
                                 build_revision=$1
@@ -61,3 +65,15 @@ for package_variant in $package_variants
 do 
     . ./build.single.sh
 done
+
+if [ ! -z "$output_path" ]; then
+
+    echo
+    echo "### COPY FILES TO OUTPUT ###"
+    echo
+
+    mkdir -p $output_path
+    cp -a $nuget_output_folder/. $output_path
+
+    echo "Copied into $output_path"
+fi
