@@ -1,0 +1,53 @@
+﻿<enum-field-mappings>
+
+  <!-- https://github.com/tanersener/mobile-ffmpeg/blob/master/android/app/src/main/java/com/arthenica/mobileffmpeg/Level.java  -->
+  <mapping jni-class="com/arthenica/mobileffmpeg/Level" clr-enum-type="Com.Arthenica.Mobileffmpeg.Level">
+    <!-- This log level is defined by MobileFFmpeg. It is used to specify logs printed to stderr by ffmpeg. Logs that has this level are not filtered and always redirected. -->
+    <bitfield jni-name="AV_LOG_STDERR" clr-name="STDERR" value="-16" />
+    <!-- Print no output. -->
+    <bitfield jni-name="AV_LOG_QUIET" clr-name="Quiet" value="-8" />
+    <!-- Something went really wrong and we will crash now. -->
+    <bitfield jni-name="AV_LOG_PANIC" clr-name="Panic" value="0" />
+    <!-- Something went wrong and recovery is not possible. For example, no header was found for a format which depends on headers or an illegal combination of parameters is used. -->
+    <bitfield jni-name="AV_LOG_FATAL" clr-name="FATAL" value="8" />
+    <!-- Something went wrong and cannot losslessly be recovered. However, not all future data is affected. -->
+    <bitfield jni-name="AV_LOG_ERROR" clr-name="ERROR" value="16" />
+    <!-- Something somehow does not look correct. This may or may not lead to problems. An example would be the use of '-vstrict -2'. -->
+    <bitfield jni-name="AV_LOG_WARNING" clr-name="WARNING" value="24" />
+    <!-- Standard information. -->
+    <bitfield jni-name="AV_LOG_INFO" clr-name="INFO" value="32" />
+    <!-- Detailed information. -->
+    <bitfield jni-name="AV_LOG_VERBOSE" clr-name="VERBOSE" value="40" />
+    <!-- Stuff which is only useful for libav* developers. -->
+    <bitfield jni-name="AV_LOG_DEBUG" clr-name="DEBUG" value="48" />
+    <!-- Extremely verbose debugging, useful for libav* development. -->
+    <bitfield jni-name="AV_LOG_TRACE" clr-name="TRACE" value="56" />
+  </mapping>
+
+  <!-- https://github.com/tanersener/mobile-ffmpeg/blob/master/android/app/src/main/java/com/arthenica/mobileffmpeg/Abi.java -->
+  <mapping jni-class="com/arthenica/mobileffmpeg/Abi" clr-enum-type="Com.Arthenica.Mobileffmpeg.Abi">
+    <!-- Represents armeabi-v7a ABI with NEON support -->
+    <bitfield jni-name="ABI_ARMV7A_NEON" clr-name="ARMV7A_NEON" value="1" />
+    <!-- Represents armeabi-v7a ABI -->
+    <bitfield jni-name="ABI_ARMV7A" clr-name="ARMV7A" value="2" />
+    <!-- Represents armeabi ABI -->
+    <bitfield jni-name="ABI_ARM" clr-name="ARM" value="3" />
+    <!-- Represents x86 ABI -->
+    <bitfield jni-name="ABI_X86" clr-name="X86" value="4" />
+    <!-- Represents x86_64 ABI -->
+    <bitfield jni-name="ABI_X86_64" clr-name="X86_64" value="5" />
+    <!-- Represents arm64-v8a ABI -->
+    <bitfield jni-name="ABI_ARM64_V8A" clr-name="ARM64_V8A" value="6" />
+    <!-- Represents not supported ABIs -->
+    <bitfield jni-name="ABI_UNKNOWN" clr-name="UNKNOWN" value="7" />
+  </mapping>
+
+  <!-- https://github.com/tanersener/mobile-ffmpeg/blob/master/android/app/src/main/java/com/arthenica/mobileffmpeg/Signal.java -->
+  <mapping jni-class="com/arthenica/mobileffmpeg/Signal" clr-enum-type="Com.Arthenica.Mobileffmpeg.Signal">
+    <bitfield jni-name="SIGINT" clr-name="SIGINT" value="2" />
+    <bitfield jni-name="SIGQUIT" clr-name="SIGQUIT" value="3" />
+    <bitfield jni-name="SIGPIPE" clr-name="SIGPIPE" value="13" />
+    <bitfield jni-name="SIGTERM" clr-name="SIGTERM" value="15" />
+    <bitfield jni-name="SIGXCPU" clr-name="SIGXCPU" value="24" />
+  </mapping>
+</enum-field-mappings>

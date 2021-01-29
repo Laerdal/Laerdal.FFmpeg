@@ -2,14 +2,14 @@
 
     <!-- FFMPEG VARIABLES -->
     <PropertyGroup>
-        <NugetPackageVariantName>Full</NugetPackageVariantName>
+        <NugetPackageVariantName>Unset</NugetPackageVariantName>
         <ExternalLibraries>-</ExternalLibraries>
     </PropertyGroup>
 
     <!-- SHARED -->
     <PropertyGroup>
         <TargetFrameworks>netstandard2.0;monoandroid10.0;xamarin.ios10</TargetFrameworks>
-        <Optimize>true</Optimize>
+        <Optimize>false</Optimize>
         <NeutralLanguage>en</NeutralLanguage>
         <LangVersion>8</LangVersion>
         <DebugSymbols>true</DebugSymbols>
@@ -18,6 +18,7 @@
         <WarningLevel>4</WarningLevel>
         <PackOnBuild>true</PackOnBuild>
         <OutputType>Library</OutputType>
+        <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
     </PropertyGroup>
 
     <PropertyGroup>
@@ -67,12 +68,666 @@
     </ItemGroup>
 
     <ItemGroup>
-        <Compile Remove="Android\**\*.cs" Condition=" !$(TargetFramework.StartsWith('monoandroid')) " />
-        <Compile Remove="iOS\**\*.cs" Condition=" !$(TargetFramework.StartsWith('xamarin.ios')) " />
-        <Compile Remove="NetStandard\**\*.cs" Condition=" !$(TargetFramework.StartsWith('netstandard')) " />
+        <Compile Include="Shared\*.cs"/>
+        <Compile Include="Properties\AssemblyInfo.cs"/>
     </ItemGroup>
+    
+    <PropertyGroup Condition=" $(TargetFramework.ToLower().StartsWith('netstandard')) ">
+    </PropertyGroup>
+    <ItemGroup Condition=" $(TargetFramework.ToLower().StartsWith('netstandard')) ">
+        <Compile Include="NetStandard\*.cs" />
+    </ItemGroup>
+
+    <PropertyGroup Condition=" $(TargetFramework.ToLower().StartsWith('monoandroid')) ">
+        <IsBindingProject>true</IsBindingProject>
+        <TargetFrameworkVersion>v10.0</TargetFrameworkVersion>
+        <AndroidClassParser>class-parse</AndroidClassParser>
+        <AndroidCodegenTarget>XAJavaInterop1</AndroidCodegenTarget>
+        <DebugType>pdbonly</DebugType>
+        <DefineConstants>TRACE</DefineConstants>
+    </PropertyGroup>
+    <ItemGroup Condition=" $(TargetFramework.ToLower().StartsWith('monoandroid')) ">
+        <Reference Include="Mono.Android" />
+        <Compile Include="Android\*.cs" />
+        <EmbeddedReferenceJar Include="Android\Jars\*.jar" />
+        <LibraryProjectZip Include="Android\Jars\*.aar" />
+        <TransformFile Include="Android\Transforms\*.xml" />
+    </ItemGroup>
+
+    <PropertyGroup Condition=" $(TargetFramework.ToLower().StartsWith('xamarin.ios')) ">
+        <IsBindingProject>true</IsBindingProject>
+        <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+        <MTouchExtraArgs>-v -v -v -v</MTouchExtraArgs>
+    </PropertyGroup>
+    <ItemGroup Condition=" $(TargetFramework.ToLower().StartsWith('xamarin.ios')) ">
+        <Reference Include="Xamarin.iOS" />
+        <Compile Include="iOS\*.cs" />
+        <ObjcBindingCoreSource Include="iOS\ObjcBinding\StructsAndEnums.cs" />
+        <ObjcBindingApiDefinition Include="iOS\ObjcBinding\ApiDefinitions.cs" />
+        <PackageReference Include="Xamarin.iOS.SwiftRuntimeSupport" Version="0.2.0" />
+    </ItemGroup>
+
+    <ItemGroup Condition=" $(TargetFramework.ToLower().StartsWith('xamarin.ios')) ">
+        <!-- iOS\Frameworks\libavcodec.framework -->
+        <None Include="iOS\Frameworks\libavcodec.framework\libavcodec" Condition="Exists('iOS\Frameworks\libavcodec.framework')">
+            <Link>iOS\Frameworks\libavcodec.framework</Link>
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+
+        <NativeReference Include="iOS\Frameworks\libavcodec.framework" Condition="Exists('iOS\Frameworks\libavcodec.framework')">
+            <Kind>Framework</Kind>
+            <SmartLink>True</SmartLink>
+            <ForceLoad>True</ForceLoad>
+            <Frameworks>AudioToolbox VideoToolbox CoreVideo</Frameworks>
+        </NativeReference>
+
+        <!-- iOS\Frameworks\libavutil.framework -->
+        <None Include="iOS\Frameworks\libavutil.framework\libavutil" Condition="Exists('iOS\Frameworks\libavutil.framework')">
+            <Link>iOS\Frameworks\libavutil.framework</Link>
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+
+        <NativeReference Include="iOS\Frameworks\libavutil.framework" Condition="Exists('iOS\Frameworks\libavutil.framework')">
+            <Kind>Framework</Kind>
+            <SmartLink>True</SmartLink>
+            <ForceLoad>True</ForceLoad>
+            <Frameworks>VideoToolbox CoreVideo</Frameworks>
+        </NativeReference>
+
+        <!-- iOS\Frameworks\mobileffmpeg.framework -->
+        <None Include="iOS\Frameworks\mobileffmpeg.framework\mobileffmpeg" Condition="Exists('iOS\Frameworks\mobileffmpeg.framework')">
+            <Link>iOS\Frameworks\mobileffmpeg.framework</Link>
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+
+        <NativeReference Include="iOS\Frameworks\mobileffmpeg.framework" Condition="Exists('iOS\Frameworks\mobileffmpeg.framework')">
+            <Kind>Framework</Kind>
+            <SmartLink>True</SmartLink>
+            <ForceLoad>True</ForceLoad>
+            <Frameworks>VideoToolbox CoreVideo</Frameworks>
+        </NativeReference>
+
+        <!-- iOS\Frameworks\libavformat.framework -->
+        <None Include="iOS\Frameworks\libavformat.framework\libavformat" Condition="Exists('iOS\Frameworks\libavformat.framework')">
+            <Link>iOS\Frameworks\libavformat.framework</Link>
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+
+        <NativeReference Include="iOS\Frameworks\libavformat.framework" Condition="Exists('iOS\Frameworks\libavformat.framework')">
+            <Kind>Framework</Kind>
+            <SmartLink>True</SmartLink>
+            <ForceLoad>True</ForceLoad>
+            <LinkerFlags>-lbz2</LinkerFlags>
+        </NativeReference>
+
+        <!-- iOS\Frameworks\snappy.framework -->
+        <None Include="iOS\Frameworks\snappy.framework\snappy" Condition="Exists('iOS\Frameworks\snappy.framework')">
+            <Link>iOS\Frameworks\snappy.framework</Link>
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+
+        <NativeReference Include="iOS\Frameworks\snappy.framework" Condition="Exists('iOS\Frameworks\snappy.framework')">
+            <Kind>Framework</Kind>
+            <SmartLink>True</SmartLink>
+            <ForceLoad>True</ForceLoad>
+            <LinkerFlags>-lc++ -lz</LinkerFlags>
+        </NativeReference>
+
+        <!-- iOS\Frameworks\expat.framework -->
+        <None Include="iOS\Frameworks\expat.framework\expat" Condition="Exists('iOS\Frameworks\expat.framework')">
+            <Link>iOS\Frameworks\expat.framework</Link>
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+
+        <NativeReference Include="iOS\Frameworks\expat.framework" Condition="Exists('iOS\Frameworks\expat.framework')">
+            <Kind>Framework</Kind>
+            <SmartLink>True</SmartLink>
+            <ForceLoad>True</ForceLoad>
+        </NativeReference>
+
+        <!-- iOS\Frameworks\jpeg.framework -->
+        <None Include="iOS\Frameworks\jpeg.framework\jpeg" Condition="Exists('iOS\Frameworks\jpeg.framework')">
+            <Link>iOS\Frameworks\jpeg.framework</Link>
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+
+        <NativeReference Include="iOS\Frameworks\jpeg.framework" Condition="Exists('iOS\Frameworks\jpeg.framework')">
+            <Kind>Framework</Kind>
+            <SmartLink>True</SmartLink>
+            <ForceLoad>True</ForceLoad>
+        </NativeReference>
+
+        <!-- iOS\Frameworks\libavfilter.framework -->
+        <None Include="iOS\Frameworks\libavfilter.framework\libavfilter" Condition="Exists('iOS\Frameworks\libavfilter.framework')">
+            <Link>iOS\Frameworks\libavfilter.framework</Link>
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+
+        <NativeReference Include="iOS\Frameworks\libavfilter.framework" Condition="Exists('iOS\Frameworks\libavfilter.framework')">
+            <Kind>Framework</Kind>
+            <SmartLink>True</SmartLink>
+            <ForceLoad>True</ForceLoad>
+        </NativeReference>
+
+        <!-- iOS\Frameworks\libopencore-amrnb.framework -->
+        <None Include="iOS\Frameworks\libopencore-amrnb.framework\libopencore-amrnb" Condition="Exists('iOS\Frameworks\libopencore-amrnb.framework')">
+            <Link>iOS\Frameworks\libopencore-amrnb.framework</Link>
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+
+        <NativeReference Include="iOS\Frameworks\libopencore-amrnb.framework" Condition="Exists('iOS\Frameworks\libopencore-amrnb.framework')">
+            <Kind>Framework</Kind>
+            <SmartLink>True</SmartLink>
+            <ForceLoad>True</ForceLoad>
+        </NativeReference>
+
+        <!-- iOS\Frameworks\libtheoraenc.framework -->
+        <None Include="iOS\Frameworks\libtheoraenc.framework\libtheoraenc" Condition="Exists('iOS\Frameworks\libtheoraenc.framework')">
+            <Link>iOS\Frameworks\libtheoraenc.framework</Link>
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+
+        <NativeReference Include="iOS\Frameworks\libtheoraenc.framework" Condition="Exists('iOS\Frameworks\libtheoraenc.framework')">
+            <Kind>Framework</Kind>
+            <SmartLink>True</SmartLink>
+            <ForceLoad>True</ForceLoad>
+        </NativeReference>
+
+        <!-- iOS\Frameworks\libwebpdemux.framework -->
+        <None Include="iOS\Frameworks\libwebpdemux.framework\libwebpdemux" Condition="Exists('iOS\Frameworks\libwebpdemux.framework')">
+            <Link>iOS\Frameworks\libwebpdemux.framework</Link>
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+
+        <NativeReference Include="iOS\Frameworks\libwebpdemux.framework" Condition="Exists('iOS\Frameworks\libwebpdemux.framework')">
+            <Kind>Framework</Kind>
+            <SmartLink>True</SmartLink>
+            <ForceLoad>True</ForceLoad>
+        </NativeReference>
+
+        <!-- iOS\Frameworks\soxr.framework -->
+        <None Include="iOS\Frameworks\soxr.framework\soxr" Condition="Exists('iOS\Frameworks\soxr.framework')">
+            <Link>iOS\Frameworks\soxr.framework</Link>
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+
+        <NativeReference Include="iOS\Frameworks\soxr.framework" Condition="Exists('iOS\Frameworks\soxr.framework')">
+            <Kind>Framework</Kind>
+            <SmartLink>True</SmartLink>
+            <ForceLoad>True</ForceLoad>
+        </NativeReference>
+
+        <!-- iOS\Frameworks\x265.framework -->
+        <None Include="iOS\Frameworks\x265.framework\x265" Condition="Exists('iOS\Frameworks\x265.framework')">
+            <Link>iOS\Frameworks\x265.framework</Link>
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+
+        <NativeReference Include="iOS\Frameworks\x265.framework" Condition="Exists('iOS\Frameworks\x265.framework')">
+            <Kind>Framework</Kind>
+            <SmartLink>True</SmartLink>
+            <ForceLoad>True</ForceLoad>
+        </NativeReference>
+
+        <!-- iOS\Frameworks\fontconfig.framework -->
+        <None Include="iOS\Frameworks\fontconfig.framework\fontconfig" Condition="Exists('iOS\Frameworks\fontconfig.framework')">
+            <Link>iOS\Frameworks\fontconfig.framework</Link>
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+
+        <NativeReference Include="iOS\Frameworks\fontconfig.framework" Condition="Exists('iOS\Frameworks\fontconfig.framework')">
+            <Kind>Framework</Kind>
+            <SmartLink>True</SmartLink>
+            <ForceLoad>True</ForceLoad>
+        </NativeReference>
+
+        <!-- iOS\Frameworks\kvazaar.framework -->
+        <None Include="iOS\Frameworks\kvazaar.framework\kvazaar" Condition="Exists('iOS\Frameworks\kvazaar.framework')">
+            <Link>iOS\Frameworks\kvazaar.framework</Link>
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+
+        <NativeReference Include="iOS\Frameworks\kvazaar.framework" Condition="Exists('iOS\Frameworks\kvazaar.framework')">
+            <Kind>Framework</Kind>
+            <SmartLink>True</SmartLink>
+            <ForceLoad>True</ForceLoad>
+        </NativeReference>
+
+        <!-- iOS\Frameworks\libpng.framework -->
+        <None Include="iOS\Frameworks\libpng.framework\libpng" Condition="Exists('iOS\Frameworks\libpng.framework')">
+            <Link>iOS\Frameworks\libpng.framework</Link>
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+
+        <NativeReference Include="iOS\Frameworks\libpng.framework" Condition="Exists('iOS\Frameworks\libpng.framework')">
+            <Kind>Framework</Kind>
+            <SmartLink>True</SmartLink>
+            <ForceLoad>True</ForceLoad>
+        </NativeReference>
+
+        <!-- iOS\Frameworks\libvidstab.framework -->
+        <None Include="iOS\Frameworks\libvidstab.framework\libvidstab" Condition="Exists('iOS\Frameworks\libvidstab.framework')">
+            <Link>iOS\Frameworks\libvidstab.framework</Link>
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+
+        <NativeReference Include="iOS\Frameworks\libvidstab.framework" Condition="Exists('iOS\Frameworks\libvidstab.framework')">
+            <Kind>Framework</Kind>
+            <SmartLink>True</SmartLink>
+            <ForceLoad>True</ForceLoad>
+        </NativeReference>
+
+        <!-- iOS\Frameworks\libwebpmux.framework -->
+        <None Include="iOS\Frameworks\libwebpmux.framework\libwebpmux" Condition="Exists('iOS\Frameworks\libwebpmux.framework')">
+            <Link>iOS\Frameworks\libwebpmux.framework</Link>
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+
+        <NativeReference Include="iOS\Frameworks\libwebpmux.framework" Condition="Exists('iOS\Frameworks\libwebpmux.framework')">
+            <Kind>Framework</Kind>
+            <SmartLink>True</SmartLink>
+            <ForceLoad>True</ForceLoad>
+        </NativeReference>
+
+        <!-- iOS\Frameworks\speex.framework -->
+        <None Include="iOS\Frameworks\speex.framework\speex" Condition="Exists('iOS\Frameworks\speex.framework')">
+            <Link>iOS\Frameworks\speex.framework</Link>
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+
+        <NativeReference Include="iOS\Frameworks\speex.framework" Condition="Exists('iOS\Frameworks\speex.framework')">
+            <Kind>Framework</Kind>
+            <SmartLink>True</SmartLink>
+            <ForceLoad>True</ForceLoad>
+        </NativeReference>
+
+        <!-- iOS\Frameworks\xvidcore.framework -->
+        <None Include="iOS\Frameworks\xvidcore.framework\xvidcore" Condition="Exists('iOS\Frameworks\xvidcore.framework')">
+            <Link>iOS\Frameworks\xvidcore.framework</Link>
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+
+        <NativeReference Include="iOS\Frameworks\xvidcore.framework" Condition="Exists('iOS\Frameworks\xvidcore.framework')">
+            <Kind>Framework</Kind>
+            <SmartLink>True</SmartLink>
+            <ForceLoad>True</ForceLoad>
+        </NativeReference>
+
+        <!-- iOS\Frameworks\freetype.framework -->
+        <None Include="iOS\Frameworks\freetype.framework\freetype" Condition="Exists('iOS\Frameworks\freetype.framework')">
+            <Link>iOS\Frameworks\freetype.framework</Link>
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+
+        <NativeReference Include="iOS\Frameworks\freetype.framework" Condition="Exists('iOS\Frameworks\freetype.framework')">
+            <Kind>Framework</Kind>
+            <SmartLink>True</SmartLink>
+            <ForceLoad>True</ForceLoad>
+        </NativeReference>
+
+        <!-- iOS\Frameworks\lame.framework -->
+        <None Include="iOS\Frameworks\lame.framework\lame" Condition="Exists('iOS\Frameworks\lame.framework')">
+            <Link>iOS\Frameworks\lame.framework</Link>
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+
+        <NativeReference Include="iOS\Frameworks\lame.framework" Condition="Exists('iOS\Frameworks\lame.framework')">
+            <Kind>Framework</Kind>
+            <SmartLink>True</SmartLink>
+            <ForceLoad>True</ForceLoad>
+        </NativeReference>
+
+        <!-- iOS\Frameworks\libsndfile.framework -->
+        <None Include="iOS\Frameworks\libsndfile.framework\libsndfile" Condition="Exists('iOS\Frameworks\libsndfile.framework')">
+            <Link>iOS\Frameworks\libsndfile.framework</Link>
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+
+        <NativeReference Include="iOS\Frameworks\libsndfile.framework" Condition="Exists('iOS\Frameworks\libsndfile.framework')">
+            <Kind>Framework</Kind>
+            <SmartLink>True</SmartLink>
+            <ForceLoad>True</ForceLoad>
+        </NativeReference>
+
+        <!-- iOS\Frameworks\libvorbis.framework -->
+        <None Include="iOS\Frameworks\libvorbis.framework\libvorbis" Condition="Exists('iOS\Frameworks\libvorbis.framework')">
+            <Link>iOS\Frameworks\libvorbis.framework</Link>
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+
+        <NativeReference Include="iOS\Frameworks\libvorbis.framework" Condition="Exists('iOS\Frameworks\libvorbis.framework')">
+            <Kind>Framework</Kind>
+            <SmartLink>True</SmartLink>
+            <ForceLoad>True</ForceLoad>
+        </NativeReference>
+
+        <!-- iOS\Frameworks\libxml2.framework -->
+        <None Include="iOS\Frameworks\libxml2.framework\libxml2" Condition="Exists('iOS\Frameworks\libxml2.framework')">
+            <Link>iOS\Frameworks\libxml2.framework</Link>
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+
+        <NativeReference Include="iOS\Frameworks\libxml2.framework" Condition="Exists('iOS\Frameworks\libxml2.framework')">
+            <Kind>Framework</Kind>
+            <SmartLink>True</SmartLink>
+            <ForceLoad>True</ForceLoad>
+        </NativeReference>
+
+        <!-- iOS\Frameworks\tiff.framework -->
+        <None Include="iOS\Frameworks\tiff.framework\tiff" Condition="Exists('iOS\Frameworks\tiff.framework')">
+            <Link>iOS\Frameworks\tiff.framework</Link>
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+
+        <NativeReference Include="iOS\Frameworks\tiff.framework" Condition="Exists('iOS\Frameworks\tiff.framework')">
+            <Kind>Framework</Kind>
+            <SmartLink>True</SmartLink>
+            <ForceLoad>True</ForceLoad>
+        </NativeReference>
+
+        <!-- iOS\Frameworks\fribidi.framework -->
+        <None Include="iOS\Frameworks\fribidi.framework\fribidi" Condition="Exists('iOS\Frameworks\fribidi.framework')">
+            <Link>iOS\Frameworks\fribidi.framework</Link>
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+
+        <NativeReference Include="iOS\Frameworks\fribidi.framework" Condition="Exists('iOS\Frameworks\fribidi.framework')">
+            <Kind>Framework</Kind>
+            <SmartLink>True</SmartLink>
+            <ForceLoad>True</ForceLoad>
+        </NativeReference>
+
+        <!-- iOS\Frameworks\libaom.framework -->
+        <None Include="iOS\Frameworks\libaom.framework\libaom" Condition="Exists('iOS\Frameworks\libaom.framework')">
+            <Link>iOS\Frameworks\libaom.framework</Link>
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+
+        <NativeReference Include="iOS\Frameworks\libaom.framework" Condition="Exists('iOS\Frameworks\libaom.framework')">
+            <Kind>Framework</Kind>
+            <SmartLink>True</SmartLink>
+            <ForceLoad>True</ForceLoad>
+        </NativeReference>
+
+        <!-- iOS\Frameworks\libhogweed.framework -->
+        <None Include="iOS\Frameworks\libhogweed.framework\libhogweed" Condition="Exists('iOS\Frameworks\libhogweed.framework')">
+            <Link>iOS\Frameworks\libhogweed.framework</Link>
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+
+        <NativeReference Include="iOS\Frameworks\libhogweed.framework" Condition="Exists('iOS\Frameworks\libhogweed.framework')">
+            <Kind>Framework</Kind>
+            <SmartLink>True</SmartLink>
+            <ForceLoad>True</ForceLoad>
+        </NativeReference>
+
+        <!-- iOS\Frameworks\libswresample.framework -->
+        <None Include="iOS\Frameworks\libswresample.framework\libswresample" Condition="Exists('iOS\Frameworks\libswresample.framework')">
+            <Link>iOS\Frameworks\libswresample.framework</Link>
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+
+        <NativeReference Include="iOS\Frameworks\libswresample.framework" Condition="Exists('iOS\Frameworks\libswresample.framework')">
+            <Kind>Framework</Kind>
+            <SmartLink>True</SmartLink>
+            <ForceLoad>True</ForceLoad>
+        </NativeReference>
+
+        <!-- iOS\Frameworks\libvorbisenc.framework -->
+        <None Include="iOS\Frameworks\libvorbisenc.framework\libvorbisenc" Condition="Exists('iOS\Frameworks\libvorbisenc.framework')">
+            <Link>iOS\Frameworks\libvorbisenc.framework</Link>
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+
+        <NativeReference Include="iOS\Frameworks\libvorbisenc.framework" Condition="Exists('iOS\Frameworks\libvorbisenc.framework')">
+            <Kind>Framework</Kind>
+            <SmartLink>True</SmartLink>
+            <ForceLoad>True</ForceLoad>
+        </NativeReference>
+
+        <!-- iOS\Frameworks\twolame.framework -->
+        <None Include="iOS\Frameworks\twolame.framework\twolame" Condition="Exists('iOS\Frameworks\twolame.framework')">
+            <Link>iOS\Frameworks\twolame.framework</Link>
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+
+        <NativeReference Include="iOS\Frameworks\twolame.framework" Condition="Exists('iOS\Frameworks\twolame.framework')">
+            <Kind>Framework</Kind>
+            <SmartLink>True</SmartLink>
+            <ForceLoad>True</ForceLoad>
+        </NativeReference>
+
+        <!-- iOS\Frameworks\giflib.framework -->
+        <None Include="iOS\Frameworks\giflib.framework\giflib" Condition="Exists('iOS\Frameworks\giflib.framework')">
+            <Link>iOS\Frameworks\giflib.framework</Link>
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+
+        <NativeReference Include="iOS\Frameworks\giflib.framework" Condition="Exists('iOS\Frameworks\giflib.framework')">
+            <Kind>Framework</Kind>
+            <SmartLink>True</SmartLink>
+            <ForceLoad>True</ForceLoad>
+        </NativeReference>
+
+        <!-- iOS\Frameworks\libass.framework -->
+        <None Include="iOS\Frameworks\libass.framework\libass" Condition="Exists('iOS\Frameworks\libass.framework')">
+            <Link>iOS\Frameworks\libass.framework</Link>
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+
+        <NativeReference Include="iOS\Frameworks\libass.framework" Condition="Exists('iOS\Frameworks\libass.framework')">
+            <Kind>Framework</Kind>
+            <SmartLink>True</SmartLink>
+            <ForceLoad>True</ForceLoad>
+        </NativeReference>
+
+        <!-- iOS\Frameworks\libilbc.framework -->
+        <None Include="iOS\Frameworks\libilbc.framework\libilbc" Condition="Exists('iOS\Frameworks\libilbc.framework')">
+            <Link>iOS\Frameworks\libilbc.framework</Link>
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+
+        <NativeReference Include="iOS\Frameworks\libilbc.framework" Condition="Exists('iOS\Frameworks\libilbc.framework')">
+            <Kind>Framework</Kind>
+            <SmartLink>True</SmartLink>
+            <ForceLoad>True</ForceLoad>
+        </NativeReference>
+
+        <!-- iOS\Frameworks\libswscale.framework -->
+        <None Include="iOS\Frameworks\libswscale.framework\libswscale" Condition="Exists('iOS\Frameworks\libswscale.framework')">
+            <Link>iOS\Frameworks\libswscale.framework</Link>
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+
+        <NativeReference Include="iOS\Frameworks\libswscale.framework" Condition="Exists('iOS\Frameworks\libswscale.framework')">
+            <Kind>Framework</Kind>
+            <SmartLink>True</SmartLink>
+            <ForceLoad>True</ForceLoad>
+        </NativeReference>
+
+        <!-- iOS\Frameworks\libvorbisfile.framework -->
+        <None Include="iOS\Frameworks\libvorbisfile.framework\libvorbisfile" Condition="Exists('iOS\Frameworks\libvorbisfile.framework')">
+            <Link>iOS\Frameworks\libvorbisfile.framework</Link>
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+
+        <NativeReference Include="iOS\Frameworks\libvorbisfile.framework" Condition="Exists('iOS\Frameworks\libvorbisfile.framework')">
+            <Kind>Framework</Kind>
+            <SmartLink>True</SmartLink>
+            <ForceLoad>True</ForceLoad>
+        </NativeReference>
+
+        <!-- iOS\Frameworks\opus.framework -->
+        <None Include="iOS\Frameworks\opus.framework\opus" Condition="Exists('iOS\Frameworks\opus.framework')">
+            <Link>iOS\Frameworks\opus.framework</Link>
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+
+        <NativeReference Include="iOS\Frameworks\opus.framework" Condition="Exists('iOS\Frameworks\opus.framework')">
+            <Kind>Framework</Kind>
+            <SmartLink>True</SmartLink>
+            <ForceLoad>True</ForceLoad>
+        </NativeReference>
+
+        <!-- iOS\Frameworks\vo-amrwbenc.framework -->
+        <None Include="iOS\Frameworks\vo-amrwbenc.framework\vo-amrwbenc" Condition="Exists('iOS\Frameworks\vo-amrwbenc.framework')">
+            <Link>iOS\Frameworks\vo-amrwbenc.framework</Link>
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+
+        <NativeReference Include="iOS\Frameworks\vo-amrwbenc.framework" Condition="Exists('iOS\Frameworks\vo-amrwbenc.framework')">
+            <Kind>Framework</Kind>
+            <SmartLink>True</SmartLink>
+            <ForceLoad>True</ForceLoad>
+        </NativeReference>
+
+        <!-- iOS\Frameworks\gmp.framework -->
+        <None Include="iOS\Frameworks\gmp.framework\gmp" Condition="Exists('iOS\Frameworks\gmp.framework')">
+            <Link>iOS\Frameworks\gmp.framework</Link>
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+
+        <NativeReference Include="iOS\Frameworks\gmp.framework" Condition="Exists('iOS\Frameworks\gmp.framework')">
+            <Kind>Framework</Kind>
+            <SmartLink>True</SmartLink>
+            <ForceLoad>True</ForceLoad>
+        </NativeReference>
+
+        <!-- iOS\Frameworks\libnettle.framework -->
+        <None Include="iOS\Frameworks\libnettle.framework\libnettle" Condition="Exists('iOS\Frameworks\libnettle.framework')">
+            <Link>iOS\Frameworks\libnettle.framework</Link>
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+
+        <NativeReference Include="iOS\Frameworks\libnettle.framework" Condition="Exists('iOS\Frameworks\libnettle.framework')">
+            <Kind>Framework</Kind>
+            <SmartLink>True</SmartLink>
+            <ForceLoad>True</ForceLoad>
+        </NativeReference>
+
+        <!-- iOS\Frameworks\libtheora.framework -->
+        <None Include="iOS\Frameworks\libtheora.framework\libtheora" Condition="Exists('iOS\Frameworks\libtheora.framework')">
+            <Link>iOS\Frameworks\libtheora.framework</Link>
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+
+        <NativeReference Include="iOS\Frameworks\libtheora.framework" Condition="Exists('iOS\Frameworks\libtheora.framework')">
+            <Kind>Framework</Kind>
+            <SmartLink>True</SmartLink>
+            <ForceLoad>True</ForceLoad>
+        </NativeReference>
+
+        <!-- iOS\Frameworks\libvpx.framework -->
+        <None Include="iOS\Frameworks\libvpx.framework\libvpx" Condition="Exists('iOS\Frameworks\libvpx.framework')">
+            <Link>iOS\Frameworks\libvpx.framework</Link>
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+
+        <NativeReference Include="iOS\Frameworks\libvpx.framework" Condition="Exists('iOS\Frameworks\libvpx.framework')">
+            <Kind>Framework</Kind>
+            <SmartLink>True</SmartLink>
+            <ForceLoad>True</ForceLoad>
+        </NativeReference>
+
+        <!-- iOS\Frameworks\shine.framework -->
+        <None Include="iOS\Frameworks\shine.framework\shine" Condition="Exists('iOS\Frameworks\shine.framework')">
+            <Link>iOS\Frameworks\shine.framework</Link>
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+
+        <NativeReference Include="iOS\Frameworks\shine.framework" Condition="Exists('iOS\Frameworks\shine.framework')">
+            <Kind>Framework</Kind>
+            <SmartLink>True</SmartLink>
+            <ForceLoad>True</ForceLoad>
+        </NativeReference>
+
+        <!-- iOS\Frameworks\wavpack.framework -->
+        <None Include="iOS\Frameworks\wavpack.framework\wavpack" Condition="Exists('iOS\Frameworks\wavpack.framework')">
+            <Link>iOS\Frameworks\wavpack.framework</Link>
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+
+        <NativeReference Include="iOS\Frameworks\wavpack.framework" Condition="Exists('iOS\Frameworks\wavpack.framework')">
+            <Kind>Framework</Kind>
+            <SmartLink>True</SmartLink>
+            <ForceLoad>True</ForceLoad>
+        </NativeReference>
+
+        <!-- iOS\Frameworks\gnutls.framework -->
+        <None Include="iOS\Frameworks\gnutls.framework\gnutls" Condition="Exists('iOS\Frameworks\gnutls.framework')">
+            <Link>iOS\Frameworks\gnutls.framework</Link>
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+
+        <NativeReference Include="iOS\Frameworks\gnutls.framework" Condition="Exists('iOS\Frameworks\gnutls.framework')">
+            <Kind>Framework</Kind>
+            <SmartLink>True</SmartLink>
+            <ForceLoad>True</ForceLoad>
+        </NativeReference>
+
+        <!-- iOS\Frameworks\libavdevice.framework -->
+        <None Include="iOS\Frameworks\libavdevice.framework\libavdevice" Condition="Exists('iOS\Frameworks\libavdevice.framework')">
+            <Link>iOS\Frameworks\libavdevice.framework</Link>
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+
+        <NativeReference Include="iOS\Frameworks\libavdevice.framework" Condition="Exists('iOS\Frameworks\libavdevice.framework')">
+            <Kind>Framework</Kind>
+            <SmartLink>True</SmartLink>
+            <ForceLoad>True</ForceLoad>
+        </NativeReference>
+
+        <!-- iOS\Frameworks\libogg.framework -->
+        <None Include="iOS\Frameworks\libogg.framework\libogg" Condition="Exists('iOS\Frameworks\libogg.framework')">
+            <Link>iOS\Frameworks\libogg.framework</Link>
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+
+        <NativeReference Include="iOS\Frameworks\libogg.framework" Condition="Exists('iOS\Frameworks\libogg.framework')">
+            <Kind>Framework</Kind>
+            <SmartLink>True</SmartLink>
+            <ForceLoad>True</ForceLoad>
+        </NativeReference>
+
+        <!-- iOS\Frameworks\libtheoradec.framework -->
+        <None Include="iOS\Frameworks\libtheoradec.framework\libtheoradec" Condition="Exists('iOS\Frameworks\libtheoradec.framework')">
+            <Link>iOS\Frameworks\libtheoradec.framework</Link>
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+
+        <NativeReference Include="iOS\Frameworks\libtheoradec.framework" Condition="Exists('iOS\Frameworks\libtheoradec.framework')">
+            <Kind>Framework</Kind>
+            <SmartLink>True</SmartLink>
+            <ForceLoad>True</ForceLoad>
+        </NativeReference>
+
+        <!-- iOS\Frameworks\libwebp.framework -->
+        <None Include="iOS\Frameworks\libwebp.framework\libwebp" Condition="Exists('iOS\Frameworks\libwebp.framework')">
+            <Link>iOS\Frameworks\libwebp.framework</Link>
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+
+        <NativeReference Include="iOS\Frameworks\libwebp.framework" Condition="Exists('iOS\Frameworks\libwebp.framework')">
+            <Kind>Framework</Kind>
+            <SmartLink>True</SmartLink>
+            <ForceLoad>True</ForceLoad>
+        </NativeReference>
+
+        <!-- iOS\Frameworks\x264.framework -->
+        <None Include="iOS\Frameworks\x264.framework\x264" Condition="Exists('iOS\Frameworks\x264.framework')">
+            <Link>iOS\Frameworks\x264.framework</Link>
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+
+        <NativeReference Include="iOS\Frameworks\x264.framework" Condition="Exists('iOS\Frameworks\x264.framework')">
+            <Kind>Framework</Kind>
+            <SmartLink>True</SmartLink>
+            <ForceLoad>True</ForceLoad>
+        </NativeReference>
+    </ItemGroup>
+
  
-    <!-- INCLUDED PACKAGES -->
+    <!-- INCLUDED PACKAGES
     <PropertyGroup>
         <iOSPackageVersion>4.4.43</iOSPackageVersion>
         <AndroidPackageVersion>4.4.21</AndroidPackageVersion>
@@ -82,5 +737,5 @@
     </ItemGroup>
     <ItemGroup Condition="'$(TargetFramework)' == 'MonoAndroid10.0'">
         <PackageReference Include="Laerdal.Xamarin.FFmpeg.Android.$(NugetPackageVariantName)" Version="$(AndroidPackageVersion)" />
-    </ItemGroup>
+    </ItemGroup> -->
 </Project>

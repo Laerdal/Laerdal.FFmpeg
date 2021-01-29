@@ -1,0 +1,27 @@
+﻿<metadata>
+
+  <attr path="/api/package[@name='com.arthenica.mobileffmpeg']" name="managedName">Laerdal.Xamarin.FFmpeg.Android</attr>
+  <attr path="/api/package[@name='com.arthenica.mobileffmpeg.util']" name="managedName">Laerdal.Xamarin.FFmpeg.Android.Util</attr>
+  
+  
+  <!-- warning BG8401: Skipping Com.Arthenica.Mobileffmpeg.Util.Pair.First, due to a duplicate field, method or nested type name. (Property) (Java type: com.arthenica.mobileffmpeg.util.Pair) -->
+  <remove-node path="/api/package[@name='com.arthenica.mobileffmpeg.util']/class[@name='Pair']/field[contains(@name, 'first')]" />
+  <!-- warning BG8401: Skipping Com.Arthenica.Mobileffmpeg.Util.Pair.Second, due to a duplicate field, method or nested type name. (Property) (Java type: com.arthenica.mobileffmpeg.util.Pair) -->
+  <remove-node path="/api/package[@name='com.arthenica.mobileffmpeg.util']/class[@name='Pair']/field[contains(@name, 'second')]" />
+
+  <!-- warning BG8401: Skipping Com.Arthenica.Mobileffmpeg.Util.Trio.First, due to a duplicate field, method or nested type name. (Property) (Java type: com.arthenica.mobileffmpeg.util.Trio) -->
+  <remove-node path="/api/package[@name='com.arthenica.mobileffmpeg.util']/class[@name='Trio']/field[contains(@name, 'first')]" />
+  <!-- warning BG8401: Skipping Com.Arthenica.Mobileffmpeg.Util.Trio.Second, due to a duplicate field, method or nested type name. (Property) (Java type: com.arthenica.mobileffmpeg.util.Trio) -->
+  <remove-node path="/api/package[@name='com.arthenica.mobileffmpeg.util']/class[@name='Trio']/field[contains(@name, 'second')]" />
+  <!-- warning BG8401: Skipping Com.Arthenica.Mobileffmpeg.Util.Trio.Third, due to a duplicate field, method or nested type name. (Property) (Java type: com.arthenica.mobileffmpeg.util.Trio) -->
+  <remove-node path="/api/package[@name='com.arthenica.mobileffmpeg.util']/class[@name='Trio']/field[contains(@name, 'third')]" />
+
+  <!-- warning CS0618: 'AsyncTask' is obsolete: 'This class is obsoleted in this android platform' -->
+  <!-- error CS0534: 'AsyncGetMediaInformationTask' does not implement inherited abstract member 'AsyncTask.DoInBackground(params Object[]?)' -->
+  <attr path="/api/package[@name='com.arthenica.mobileffmpeg']/class[@name='AsyncFFprobeExecuteTask']" name="extends">Java.Lang.Object</attr>
+  <attr path="/api/package[@name='com.arthenica.mobileffmpeg']/class[@name='AsyncGetMediaInformationTask']" name="extends">Java.Lang.Object</attr>
+  <attr path="/api/package[@name='com.arthenica.mobileffmpeg']/class[@name='AsyncFFmpegExecuteTask']" name="extends">Java.Lang.Object</attr>
+
+  <!-- warning CS0108: 'Abi.Name' hides inherited member 'Enum.Name()'. Use the new keyword if hiding was intended. -->
+  <attr path="/api/package[@name='com.arthenica.mobileffmpeg']/class[@name='Abi']/method[@name='getName']" name="managedName">GetAbiName</attr>
+</metadata>
