@@ -1,5 +1,7 @@
 <Project Sdk="MSBuild.Sdk.Extras/2.0.54">
 
+    <Import Project="GitVersion.targets" />
+
     <!-- FFMPEG VARIABLES -->
     <PropertyGroup>
         <NugetPackageVariantName>Unset</NugetPackageVariantName>
@@ -9,14 +11,9 @@
     <!-- SHARED -->
     <PropertyGroup>
         <TargetFrameworks>netstandard2.0;monoandroid10.0;xamarin.ios10</TargetFrameworks>
-        <Optimize>false</Optimize>
-        <NeutralLanguage>en</NeutralLanguage>
-        <LangVersion>8</LangVersion>
+        <LangVersion>latest</LangVersion>
         <DebugSymbols>true</DebugSymbols>
         <OutputPath>bin\</OutputPath>
-        <ErrorReport>prompt</ErrorReport>
-        <WarningLevel>4</WarningLevel>
-        <PackOnBuild>true</PackOnBuild>
         <OutputType>Library</OutputType>
         <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
     </PropertyGroup>
@@ -28,6 +25,8 @@
         <PackageTags>Xamarin;FFmpeg;$(NugetPackageVariantName)</PackageTags>
         <PackageDescription>Xamarin wrapper around mobile-ffmpeg for Android and iOS. External libraries: $(ExternalLibraries). Based on https://github.com/tanersener/mobile-ffmpeg</PackageDescription>
         <PackageProjectUrl>https://github.com/Laerdal/Laerdal.Xamarin.FFmpeg</PackageProjectUrl>
+        <RepositoryBranch>$(GitVersion_BranchName)</RepositoryBranch>
+        <RepositoryCommit>$(GitVersion_Sha)</RepositoryCommit>
         <PackageVersion>1.0.0</PackageVersion>
         <PackageOutputPath>../$(RootNamespace).Output/$(NugetPackageVariantName)</PackageOutputPath>
         <PackageIcon>icon.png</PackageIcon>
@@ -68,8 +67,8 @@
     </ItemGroup>
 
     <ItemGroup>
-        <Compile Include="Shared\*.cs"/>
-        <Compile Include="Properties\AssemblyInfo.cs"/>
+        <Compile Include="Shared\*.cs" />
+        <Compile Include="Properties\AssemblyInfo.cs" />
     </ItemGroup>
     
     <PropertyGroup Condition=" $(TargetFramework.ToLower().StartsWith('netstandard')) ">
@@ -101,6 +100,7 @@
     </PropertyGroup>
     <ItemGroup Condition=" $(TargetFramework.ToLower().StartsWith('xamarin.ios')) ">
         <Reference Include="Xamarin.iOS" />
+        <Reference Include="netstandard" />
         <Compile Include="iOS\*.cs" />
         <ObjcBindingCoreSource Include="iOS\ObjcBinding\StructsAndEnums.cs" />
         <ObjcBindingApiDefinition Include="iOS\ObjcBinding\ApiDefinitions.cs" />
