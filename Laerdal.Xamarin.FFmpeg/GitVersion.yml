@@ -13,7 +13,7 @@ branches:
   master:
     tag: ''
     regex: (^master$|^origin\/master$|^main$|^origin\/main$)
-    increment: Minor
+    increment: Patch
   pull-request:
     tag: pr
 ignore:
