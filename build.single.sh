@@ -149,6 +149,12 @@ if [ "$clean_output" = "1" ]; then
     echo "Deleted : $nuget_output_folder/$nuget_variant"
 fi
 
+echo
+echo "### SETTING GITVERSION NEXT-VERSION  ###"
+echo
+echo "next-version: $github_short_version"
+sed -i -E "s/next-version:.*/next-version: $github_short_version/" $nuget_project_folder/GitVersion.yml
+
 echo ""
 echo "### DOWNLOAD GITHUB RELEASE FILES ###"
 echo ""

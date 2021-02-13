@@ -45,7 +45,7 @@ Simply add the Nuget package you want into **ALL** of your Xamarin projects (Sha
 > To fix it you can either :
 >
 > - Switch to `<MtouchLink>SdkOnly</MtouchLink>` or `<MtouchLink>None</MtouchLink>`
-> - Add `<MTouchExtraArgs>--optimize=-remove-dynamic-registrar</MTouchExtraArgs>` to the .csproj of your iOS project
+> - Add `<MtouchExtraArgs>--optimize=-remove-dynamic-registrar</MtouchExtraArgs>` to the .csproj of your iOS project
 >
 > PS. If you know how I could fix it please PR or send a message :)
 
