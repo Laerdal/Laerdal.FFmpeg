@@ -3,9 +3,6 @@ mode: ContinuousDeployment
 next-version: 4.4
 continuous-delivery-fallback-tag: ''
 branches:
-  feature:
-    tag: alpha
-    increment: Patch
   develop:
     tag: beta
     increment: Patch

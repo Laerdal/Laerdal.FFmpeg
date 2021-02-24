@@ -1,7 +1,7 @@
 #!/bin/bash
 
 usage(){
-    echo "usage: ./build.single.sh [-p|--package [audio|full|full-gpl|https|https-gpl|min|min-gpl|video]] [-c|--clean-output] [-v|--verbose] [-o|--output-path path]"
+    echo "usage: ./build.single.sh [-p|--package [audio|full|full-gpl|https|https-gpl|min|min-gpl|video]] [-c|--clean-output] [-v|--verbose]"
     echo "parameters:"
     echo "  -p | --package [audio|full|full-gpl|https|https-gpl|min|min-gpl|video]    REQUIRED, See https://github.com/tanersener/mobile-ffmpeg for more information"
     echo "  -c | --clean-output                                                       Cleans the output before building"
@@ -87,8 +87,6 @@ nuget_variant="$package_variant"
 [ "$package_variant" = "min" ] && nuget_variant="Min"
 [ "$package_variant" = "min-gpl" ] && nuget_variant="Min.Gpl"
 [ "$package_variant" = "video" ] && nuget_variant="Video"
-
-nuget_output_file="$nuget_output_folder/$nuget_variant/$nuget_filename"
 
 nuget_jars_folder="$nuget_project_folder/Android/Jars"
 nuget_frameworks_folder="$nuget_project_folder/iOS/Frameworks"

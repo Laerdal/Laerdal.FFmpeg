@@ -1,4 +1,4 @@
-<Project Sdk="MSBuild.Sdk.Extras/2.0.54">
+<Project Sdk="MSBuild.Sdk.Extras/3.0.23">
 
     <Import Project="GitVersion.targets" />
 
@@ -675,16 +675,15 @@
         </NativeReference>
     </ItemGroup>
 
- 
-    <!-- INCLUDED PACKAGES
+    <!-- Documentation -->
     <PropertyGroup>
-        <iOSPackageVersion>4.4.43</iOSPackageVersion>
-        <AndroidPackageVersion>4.4.21</AndroidPackageVersion>
+        <!-- warning CS1591: Missing XML comment for publicly visible type or member. -->
+        <MSBuildWarningsAsMessages>$(MSBuildWarningsAsMessages);CS1591</MSBuildWarningsAsMessages>
+        <GenerateDocumentationFile>true</GenerateDocumentationFile>
+        <DocumentationFile>$(RootNamespace).doc.xml</DocumentationFile>
+        <DocumentationMarkdown>$(RootNamespace).doc.md</DocumentationMarkdown>
     </PropertyGroup>
-    <ItemGroup Condition="'$(TargetFramework)' == 'Xamarin.iOS10'">
-        <PackageReference Include="Laerdal.Xamarin.FFmpeg.iOS.$(NugetPackageVariantName)" Version="$(iOSPackageVersion)" />
+    <ItemGroup>
+        <PackageReference Include="Vsxmd" Version="1.4.4" PrivateAssets="all" />
     </ItemGroup>
-    <ItemGroup Condition="'$(TargetFramework)' == 'MonoAndroid10.0'">
-        <PackageReference Include="Laerdal.Xamarin.FFmpeg.Android.$(NugetPackageVariantName)" Version="$(AndroidPackageVersion)" />
-    </ItemGroup> -->
 </Project>
