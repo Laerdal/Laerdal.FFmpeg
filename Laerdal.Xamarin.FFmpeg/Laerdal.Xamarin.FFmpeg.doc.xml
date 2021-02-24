@@ -1,0 +1,339 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Laerdal.Xamarin.FFmpeg</name>
+    </assembly>
+    <members>
+        <member name="P:Laerdal.Xamarin.FFmpeg.FFmpeg.Version">
+            <summary>
+            Global library version
+            </summary>
+        </member>
+        <member name="M:Laerdal.Xamarin.FFmpeg.FFmpeg.Execute(System.String)">
+            <summary>
+            Synchronously executes FFmpeg command provided. Space character is used to split command into arguments.
+            </summary>
+            <param name="arguments">FFmpeg command</param>
+            <returns>zero on successful execution, 255 on user cancel and non-zero on error</returns>
+        </member>
+        <member name="M:Laerdal.Xamarin.FFmpeg.FFmpeg.Execute(System.String[])">
+            <summary>
+            Synchronously executes FFmpeg with arguments provided.
+            </summary>
+            <param name="arguments">FFmpeg command options/arguments as string array</param>
+            <returns>zero on successful execution, 255 on user cancel and non-zero on error</returns>
+        </member>
+        <member name="M:Laerdal.Xamarin.FFmpeg.FFmpeg.Cancel(System.Int64)">
+            <summary>
+            Cancels an ongoing operation.
+            This function does not wait for termination to complete and returns immediately.
+            </summary>
+            <param name="executionId">execution id</param>
+        </member>
+        <member name="M:Laerdal.Xamarin.FFmpeg.FFmpeg.ListExecutions">
+            <summary>
+            Lists ongoing executions.
+            </summary>
+            <returns>list of ongoing executions</returns>
+        </member>
+        <member name="T:Laerdal.Xamarin.FFmpeg.FFmpegConfig">
+            <summary>
+             This class is used to configure MobileFFmpeg library utilities/tools.
+            
+             1. LogDelegate: This class redirects FFmpeg/FFprobe output to NSLog by default. As
+             an alternative, it is possible not to print messages to NSLog and pass them to a
+             LogDelegate function. This function can decide whether to print these logs, show them
+             inside another container or ignore them.
+            
+             2. setLogLevel:/getLogLevel: Use this methods to set/get
+             FFmpeg/FFprobe log severity.
+            
+             3. StatsDelegate: It is possible to receive statistics about ongoing
+             operation by defining a StatsDelegate or by calling
+             getLastReceivedStats method.
+            
+             4. Font configuration: It is possible to register custom fonts with
+             setFontconfigConfigurationPath: and
+             setFontDirectory:with: methods.
+            </summary>
+        </member>
+        <member name="M:Laerdal.Xamarin.FFmpeg.FFmpegConfig.EnableRedirection">
+            <summary>
+            Enables log and statistics redirection.
+            When redirection is not enabled FFmpeg/FFprobe logs are printed to stderr. By enabling
+            redirection, they are routed to NSLog and can be routed further to a log delegate.
+            Statistics redirection behaviour is similar. Statistics are not printed at all if
+            redirection is not enabled. If it is enabled then it is possible to define a statistics
+            delegate but if you don't, they are not printed anywhere and only saved as
+            'lastReceivedStatistics' data which can be polled with
+            '{@link #'getLastReceivedStatistics()'.
+            Note that redirection is enabled by default. If you do not want to use its functionality
+            please use 'disableRedirection()' to disable it.
+            </summary>
+        </member>
+        <member name="M:Laerdal.Xamarin.FFmpeg.FFmpegConfig.DisableRedirection">
+            <summary>
+            Disables log and statistics redirection.
+            </summary>
+        </member>
+        <member name="P:Laerdal.Xamarin.FFmpeg.FFmpegConfig.LogLevel">
+            <summary>
+            Gets and sets log level.
+            </summary>
+        </member>
+        <member name="P:Laerdal.Xamarin.FFmpeg.FFmpegConfig.FFmpegLogDelegate">
+            <summary>
+            Sets a LogDelegate. logCallback method inside LogDelegate is used to redirect logs.
+            </summary>
+        </member>
+        <member name="P:Laerdal.Xamarin.FFmpeg.FFmpegConfig.FFmpegStatisticsDelegate">
+            <summary>
+            Sets a StatisticsDelegate. statisticsCallback method inside StatisticsDelegate is used to redirect statistics.
+            </summary>
+        </member>
+        <member name="P:Laerdal.Xamarin.FFmpeg.FFmpegConfig.LastReceivedFFmpegStatistics">
+            <summary>
+            Returns the last received statistics data. It is recommended to call it before starting a new execution.
+            </summary>
+        </member>
+        <member name="M:Laerdal.Xamarin.FFmpeg.FFmpegConfig.ResetStatistics">
+            <summary>
+            Resets last received statistics.
+            </summary>
+        </member>
+        <member name="P:Laerdal.Xamarin.FFmpeg.FFmpegConfig.FontconfigConfigurationPath">
+            <summary>
+            Sets and overrides fontconfig configuration directory which contains fontconfig configuration (fonts.conf)
+            </summary>
+        </member>
+        <member name="M:Laerdal.Xamarin.FFmpeg.FFmpegConfig.SetFontDirectory(System.String,System.Collections.Generic.IDictionary{System.String,System.String})">
+             <summary>
+             Registers fonts inside the given path, so they are available to use in FFmpeg filters.
+            
+             Note that you need to build MobileFFmpeg with fontconfig
+             enabled or use a prebuilt package with fontconfig inside to use this feature.
+             </summary>
+             <param name="fontDirectoryPath">directory which contains fonts (.ttf and .otf files)</param>
+             <param name="fontNameMapping">custom font name mappings, useful to access your fonts with more friendly names</param>
+        </member>
+        <member name="P:Laerdal.Xamarin.FFmpeg.FFmpegConfig.PackageName">
+            <summary>
+            Returns guessed package name according to supported external libraries
+            </summary>
+        </member>
+        <member name="P:Laerdal.Xamarin.FFmpeg.FFmpegConfig.ExternalLibraries">
+            <summary>
+            Returns supported external libraries.
+            </summary>
+        </member>
+        <member name="M:Laerdal.Xamarin.FFmpeg.FFmpegConfig.RegisterNewFFmpegPipe">
+             <summary>
+             Creates a new named pipe to use in FFmpeg operations.
+            
+             Please note that creator is responsible of closing created pipes.
+             </summary>
+             <returns>the full path of named pipe</returns>
+        </member>
+        <member name="M:Laerdal.Xamarin.FFmpeg.FFmpegConfig.CloseFFmpegPipe(System.String)">
+            <summary>
+            Closes a previously created FFmpeg pipe.
+            </summary>
+            <param name="ffmpegPipePath">full path of ffmpeg pipe</param>
+        </member>
+        <member name="P:Laerdal.Xamarin.FFmpeg.FFmpegConfig.FFmpegVersion">
+            <summary>
+            Returns FFmpeg version bundled within the library.
+            </summary>
+        </member>
+        <member name="P:Laerdal.Xamarin.FFmpeg.FFmpegConfig.Version">
+            <summary>
+            Returns MobileFFmpeg library version.
+            </summary>
+        </member>
+        <member name="P:Laerdal.Xamarin.FFmpeg.FFmpegConfig.BuildDate">
+            <summary>
+            Returns MobileFFmpeg library build date.
+            </summary>
+        </member>
+        <member name="P:Laerdal.Xamarin.FFmpeg.FFmpegConfig.LastReturnCode">
+            <summary>
+            Returns return code of last executed command.
+            </summary>
+        </member>
+        <member name="P:Laerdal.Xamarin.FFmpeg.FFmpegConfig.LastCommandOutput">
+             <summary>
+             Returns log output of last executed single FFmpeg/FFprobe command.
+            
+             This method does not support executing multiple concurrent commands. If you execute
+             multiple commands at the same time, this method will return output from all executions.
+            
+             Please note that disabling redirection using MobileFFmpegConfig.disableRedirection() method
+             also disables this functionality.
+             </summary>
+        </member>
+        <member name="M:Laerdal.Xamarin.FFmpeg.FFmpegConfig.IgnoreSignal(System.Int32)">
+             <summary>
+             Registers a new ignored signal. Ignored signals are not handled by the library.
+            
+             By default, the following 5 signals are handled: SIGINT, SIGQUIT, SIGPIPE, SIGTERM and SIGXCPU. Any of them can be
+             ignored.
+             </summary>
+             <param name="signum">signal number to ignore</param>
+        </member>
+        <member name="M:Laerdal.Xamarin.FFmpeg.BaseFFmpegConfigImplementation.EnableRedirection">
+            <summary>
+            Enables log and statistics redirection.
+            When redirection is not enabled FFmpeg/FFprobe logs are printed to stderr. By enabling
+            redirection, they are routed to NSLog and can be routed further to a log delegate.
+            Statistics redirection behaviour is similar. Statistics are not printed at all if
+            redirection is not enabled. If it is enabled then it is possible to define a statistics
+            delegate but if you don't, they are not printed anywhere and only saved as
+            'lastReceivedStatistics' data which can be polled with
+            '{@link #'getLastReceivedStatistics()'.
+            Note that redirection is enabled by default. If you do not want to use its functionality
+            please use 'disableRedirection()' to disable it.
+            </summary>
+        </member>
+        <member name="M:Laerdal.Xamarin.FFmpeg.BaseFFmpegConfigImplementation.DisableRedirection">
+            <summary>
+            Disables log and statistics redirection.
+            </summary>
+        </member>
+        <member name="P:Laerdal.Xamarin.FFmpeg.BaseFFmpegConfigImplementation.LogLevel">
+            <summary>
+            Gets and sets log level.
+            </summary>
+        </member>
+        <member name="P:Laerdal.Xamarin.FFmpeg.BaseFFmpegConfigImplementation.FFmpegLogDelegate">
+            <summary>
+            Sets a LogDelegate. logCallback method inside LogDelegate is used to redirect logs.
+            </summary>
+        </member>
+        <member name="P:Laerdal.Xamarin.FFmpeg.BaseFFmpegConfigImplementation.FFmpegStatisticsDelegate">
+            <summary>
+            Sets a StatisticsDelegate. statisticsCallback method inside StatisticsDelegate is used to redirect statistics.
+            </summary>
+        </member>
+        <member name="P:Laerdal.Xamarin.FFmpeg.BaseFFmpegConfigImplementation.LastReceivedFFmpegStatistics">
+            <summary>
+            Returns the last received statistics data. It is recommended to call it before starting a new execution.
+            </summary>
+        </member>
+        <member name="M:Laerdal.Xamarin.FFmpeg.BaseFFmpegConfigImplementation.ResetStatistics">
+            <summary>
+            Resets last received statistics.
+            </summary>
+        </member>
+        <member name="P:Laerdal.Xamarin.FFmpeg.BaseFFmpegConfigImplementation.FontconfigConfigurationPath">
+            <summary>
+            Sets and overrides fontconfig configuration directory which contains fontconfig configuration (fonts.conf)
+            </summary>
+        </member>
+        <member name="M:Laerdal.Xamarin.FFmpeg.BaseFFmpegConfigImplementation.SetFontDirectory(System.String,System.Collections.Generic.IDictionary{System.String,System.String})">
+             <summary>
+             Registers fonts inside the given path, so they are available to use in FFmpeg filters.
+            
+             Note that you need to build MobileFFmpeg with fontconfig
+             enabled or use a prebuilt package with fontconfig inside to use this feature.
+             </summary>
+             <param name="fontDirectoryPath">directory which contains fonts (.ttf and .otf files)</param>
+             <param name="fontNameMapping">custom font name mappings, useful to access your fonts with more friendly names</param>
+        </member>
+        <member name="P:Laerdal.Xamarin.FFmpeg.BaseFFmpegConfigImplementation.PackageName">
+            <summary>
+            Returns guessed package name according to supported external libraries
+            </summary>
+        </member>
+        <member name="P:Laerdal.Xamarin.FFmpeg.BaseFFmpegConfigImplementation.ExternalLibraries">
+            <summary>
+            Returns supported external libraries.
+            </summary>
+        </member>
+        <member name="M:Laerdal.Xamarin.FFmpeg.BaseFFmpegConfigImplementation.RegisterNewFFmpegPipe">
+             <summary>
+             Creates a new named pipe to use in FFmpeg operations.
+            
+             Please note that creator is responsible of closing created pipes.
+             </summary>
+             <returns>the full path of named pipe</returns>
+        </member>
+        <member name="M:Laerdal.Xamarin.FFmpeg.BaseFFmpegConfigImplementation.CloseFFmpegPipe(System.String)">
+            <summary>
+            Closes a previously created FFmpeg pipe.
+            </summary>
+            <param name="ffmpegPipePath">full path of ffmpeg pipe</param>
+        </member>
+        <member name="P:Laerdal.Xamarin.FFmpeg.BaseFFmpegConfigImplementation.FFmpegVersion">
+            <summary>
+            Returns FFmpeg version bundled within the library.
+            </summary>
+        </member>
+        <member name="P:Laerdal.Xamarin.FFmpeg.BaseFFmpegConfigImplementation.Version">
+            <summary>
+            Returns MobileFFmpeg library version.
+            </summary>
+        </member>
+        <member name="P:Laerdal.Xamarin.FFmpeg.BaseFFmpegConfigImplementation.BuildDate">
+            <summary>
+            Returns MobileFFmpeg library build date.
+            </summary>
+        </member>
+        <member name="P:Laerdal.Xamarin.FFmpeg.BaseFFmpegConfigImplementation.LastReturnCode">
+            <summary>
+            Returns return code of last executed command.
+            </summary>
+        </member>
+        <member name="P:Laerdal.Xamarin.FFmpeg.BaseFFmpegConfigImplementation.LastCommandOutput">
+             <summary>
+             Returns log output of last executed single FFmpeg/FFprobe command.
+            
+             This method does not support executing multiple concurrent commands. If you execute
+             multiple commands at the same time, this method will return output from all executions.
+            
+             Please note that disabling redirection using MobileFFmpegConfig.disableRedirection() method
+             also disables this functionality.
+             </summary>
+        </member>
+        <member name="M:Laerdal.Xamarin.FFmpeg.BaseFFmpegConfigImplementation.IgnoreSignal(System.Int32)">
+             <summary>
+             Registers a new ignored signal. Ignored signals are not handled by the library.
+            
+             By default, the following 5 signals are handled: SIGINT, SIGQUIT, SIGPIPE, SIGTERM and SIGXCPU. Any of them can be
+             ignored.
+             </summary>
+             <param name="signum">signal number to ignore</param>
+        </member>
+        <member name="P:Laerdal.Xamarin.FFmpeg.BaseFFmpegImplementation.Version">
+            <summary>
+            Global library version
+            </summary>
+        </member>
+        <member name="M:Laerdal.Xamarin.FFmpeg.BaseFFmpegImplementation.Execute(System.String)">
+            <summary>
+            Synchronously executes FFmpeg command provided. Space character is used to split command into arguments.
+            </summary>
+            <param name="arguments">FFmpeg command</param>
+            <returns>zero on successful execution, 255 on user cancel and non-zero on error</returns>
+        </member>
+        <member name="M:Laerdal.Xamarin.FFmpeg.BaseFFmpegImplementation.Execute(System.String[])">
+            <summary>
+            Synchronously executes FFmpeg with arguments provided.
+            </summary>
+            <param name="arguments">FFmpeg command options/arguments as string array</param>
+            <returns>zero on successful execution, 255 on user cancel and non-zero on error</returns>
+        </member>
+        <member name="M:Laerdal.Xamarin.FFmpeg.BaseFFmpegImplementation.Cancel(System.Int64)">
+            <summary>
+            Cancels an ongoing operation.
+            This function does not wait for termination to complete and returns immediately.
+            </summary>
+            <param name="executionId">execution id</param>
+        </member>
+        <member name="M:Laerdal.Xamarin.FFmpeg.BaseFFmpegImplementation.ListExecutions">
+            <summary>
+            Lists ongoing executions.
+            </summary>
+            <returns>list of ongoing executions</returns>
+        </member>
+    </members>
+</doc>

@@ -1,0 +1,18 @@
+assembly-versioning-scheme: MajorMinorPatch
+mode: ContinuousDeployment
+next-version: 4.4
+continuous-delivery-fallback-tag: ''
+branches:
+  develop:
+    tag: beta
+    increment: Patch
+    regex: ^dev(elop)?(ment)?$
+  master:
+    tag: ''
+    regex: (^master$|^origin\/master$|^main$|^origin\/main$)
+    increment: Patch
+  pull-request:
+    tag: pr
+ignore:
+  sha: []
+merge-message-formats: {}

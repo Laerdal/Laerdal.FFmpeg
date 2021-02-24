@@ -1,10 +1,9 @@
 #!/bin/bash
 
 usage(){
-    echo "usage: ./build.single.sh [-p|--package [audio|full|full-gpl|https|https-gpl|min|min-gpl|video]] [-r|--revision build_revision] [-c|--clean-output] [-v|--verbose] [-o|--output-path path]"
+    echo "usage: ./build.single.sh [-p|--package [audio|full|full-gpl|https|https-gpl|min|min-gpl|video]] [-c|--clean-output] [-v|--verbose]"
     echo "parameters:"
     echo "  -p | --package [audio|full|full-gpl|https|https-gpl|min|min-gpl|video]    REQUIRED, See https://github.com/tanersener/mobile-ffmpeg for more information"
-    echo "  -r | --revision [build_revision]                                          Sets the revision number, default = mdd.hMMSS"
     echo "  -c | --clean-output                                                       Cleans the output before building"
     echo "  -v | --verbose                                                            Enable verbose build details from msbuild tasks"
     echo "  -h | --help                                                               Prints this message"
@@ -17,9 +16,6 @@ while [ "$1" != "" ]; do
                                 package_variant=$1
                                 ;;
         -c | --clean-output )   clean_output=1
-                                ;;
-        -r | --revision )       shift
-                                build_revision=$1
                                 ;;
         -v | --verbose )        verbose=1
                                 ;;
@@ -43,10 +39,6 @@ if [ -z "$package_variant" ]; then
     exit 1
 fi
 
-if [ -z "$build_revision" ]; then
-    build_revision=`date +%-m%d.%-H%M%S`
-fi
-
 # find the latest ID here : https://api.github.com/repos/tanersener/mobile-ffmpeg/releases/latest
 github_repo_owner=tanersener
 github_repo=mobile-ffmpeg
@@ -68,14 +60,6 @@ echo ""
 
 # Set version
 github_tag_name=`cat $github_info_file | grep '"tag_name":' | sed -E 's/.*"([^"]+)".*/\1/' | sed 's/v//'`
-github_short_version=`echo "$github_tag_name" | sed 's/.LTS//'`
-build_version=$github_short_version.$build_revision
-echo "##vso[build.updatebuildnumber]$build_version"
-if [ -z "$github_short_version" ]; then
-    echo "Failed : Could not read Version"
-    cat $github_info_file
-    exit 1
-fi
 
 # Static configuration
 nuget_project_folder="Laerdal.Xamarin.FFmpeg"
@@ -104,9 +88,6 @@ nuget_variant="$package_variant"
 [ "$package_variant" = "min-gpl" ] && nuget_variant="Min.Gpl"
 [ "$package_variant" = "video" ] && nuget_variant="Video"
 
-nuget_filename="$nuget_project_name.$nuget_variant.$build_version.nupkg"
-nuget_output_file="$nuget_output_folder/$nuget_variant/$nuget_filename"
-
 nuget_jars_folder="$nuget_project_folder/Android/Jars"
 nuget_frameworks_folder="$nuget_project_folder/iOS/Frameworks"
 
@@ -125,14 +106,11 @@ if [ "$sharpie" = "1" ]; then
 fi
 
 # Generates variables
-echo "build_version = $build_version"
-echo ""
 echo "github_repo_owner = $github_repo_owner"
 echo "github_repo = $github_repo"
 echo "github_release_id = $github_release_id"
 echo "github_info_file = $github_info_file"
 echo "github_tag_name = $github_tag_name"
-echo "github_short_version = $github_short_version"
 echo ""
 echo "package_variant = $package_variant"
 echo "package_libraries = $package_libraries"
@@ -150,8 +128,6 @@ echo "nuget_project_folder = $nuget_project_folder"
 echo "nuget_output_folder = $nuget_output_folder"
 echo "nuget_project_name = $nuget_project_name"
 echo "nuget_csproj_path = $nuget_csproj_path"
-echo "nuget_filename = $nuget_filename"
-echo "nuget_output_file = $nuget_output_file"
 echo ""
 echo "nuget_jars_folder = $nuget_jars_folder"
 echo "nuget_frameworks_folder = $nuget_frameworks_folder"
@@ -170,6 +146,12 @@ if [ "$clean_output" = "1" ]; then
     rm -rf $nuget_output_folder/$nuget_variant
     echo "Deleted : $nuget_output_folder/$nuget_variant"
 fi
+
+echo
+echo "### SETTING GITVERSION NEXT-VERSION  ###"
+echo
+echo "next-version: $github_short_version"
+sed -i -E "s/next-version:.*/next-version: $github_short_version/" $nuget_project_folder/GitVersion.yml
 
 echo ""
 echo "### DOWNLOAD GITHUB RELEASE FILES ###"
@@ -248,7 +230,6 @@ msbuild_parameters="${msbuild_parameters} -t:Rebuild"
 msbuild_parameters="${msbuild_parameters} -restore:True"
 msbuild_parameters="${msbuild_parameters} -p:Configuration=Release"
 msbuild_parameters="${msbuild_parameters} -p:NugetPackageVariantName=$nuget_variant"
-msbuild_parameters="${msbuild_parameters} -p:PackageVersion=$build_version"
 msbuild_parameters="${msbuild_parameters} -p:ExternalLibraries=\"$package_libraries\""
 echo "msbuild_parameters = $msbuild_parameters"
 echo ""
@@ -256,13 +237,3 @@ echo ""
 rm -rf $nuget_project_folder/bin
 rm -rf $nuget_project_folder/obj
 msbuild $nuget_csproj_path $msbuild_parameters
-
-if [ -f "$nuget_output_file" ]; then
-    echo "Created :"
-    echo "  - $nuget_output_file"
-    echo ""
-    rm -rf $nuget_frameworks_folder
-else
-    echo "Failed : Can't find '$nuget_output_file'"
-    exit 1
-fi

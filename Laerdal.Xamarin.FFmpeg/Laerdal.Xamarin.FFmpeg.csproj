@@ -1,4 +1,6 @@
-<Project Sdk="MSBuild.Sdk.Extras/2.0.54">
+<Project Sdk="MSBuild.Sdk.Extras/3.0.23">
+
+    <Import Project="GitVersion.targets" />
 
     <!-- FFMPEG VARIABLES -->
     <PropertyGroup>
@@ -9,14 +11,9 @@
     <!-- SHARED -->
     <PropertyGroup>
         <TargetFrameworks>netstandard2.0;monoandroid10.0;xamarin.ios10</TargetFrameworks>
-        <Optimize>false</Optimize>
-        <NeutralLanguage>en</NeutralLanguage>
-        <LangVersion>8</LangVersion>
+        <LangVersion>latest</LangVersion>
         <DebugSymbols>true</DebugSymbols>
         <OutputPath>bin\</OutputPath>
-        <ErrorReport>prompt</ErrorReport>
-        <WarningLevel>4</WarningLevel>
-        <PackOnBuild>true</PackOnBuild>
         <OutputType>Library</OutputType>
         <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
     </PropertyGroup>
@@ -48,6 +45,8 @@
         <Owners>François Raminosona, Laerdal</Owners>
         <Copyright>François Raminosona, Laerdal</Copyright>
         <RepositoryUrl>https://github.com/Laerdal/Laerdal.Xamarin.FFmpeg.git</RepositoryUrl>
+        <RepositoryBranch>$(GitVersion_BranchName)</RepositoryBranch>
+        <RepositoryCommit>$(GitVersion_Sha)</RepositoryCommit>
         <PublishRepositoryUrl>true</PublishRepositoryUrl>
         <RepositoryType>git</RepositoryType>
 
@@ -68,8 +67,8 @@
     </ItemGroup>
 
     <ItemGroup>
-        <Compile Include="Shared\*.cs"/>
-        <Compile Include="Properties\AssemblyInfo.cs"/>
+        <Compile Include="Shared\*.cs" />
+        <Compile Include="Properties\AssemblyInfo.cs" />
     </ItemGroup>
     
     <PropertyGroup Condition=" $(TargetFramework.ToLower().StartsWith('netstandard')) ">
@@ -97,10 +96,11 @@
     <PropertyGroup Condition=" $(TargetFramework.ToLower().StartsWith('xamarin.ios')) ">
         <IsBindingProject>true</IsBindingProject>
         <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-        <MTouchExtraArgs>-v -v -v -v</MTouchExtraArgs>
+        <MtouchExtraArgs>-v -v -v -v</MtouchExtraArgs>
     </PropertyGroup>
     <ItemGroup Condition=" $(TargetFramework.ToLower().StartsWith('xamarin.ios')) ">
         <Reference Include="Xamarin.iOS" />
+        <Reference Include="netstandard" />
         <Compile Include="iOS\*.cs" />
         <ObjcBindingCoreSource Include="iOS\ObjcBinding\StructsAndEnums.cs" />
         <ObjcBindingApiDefinition Include="iOS\ObjcBinding\ApiDefinitions.cs" />
@@ -111,7 +111,6 @@
         <!-- iOS\Frameworks\libavcodec.framework -->
         <None Include="iOS\Frameworks\libavcodec.framework\libavcodec" Condition="Exists('iOS\Frameworks\libavcodec.framework')">
             <Link>iOS\Frameworks\libavcodec.framework</Link>
-            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </None>
 
         <NativeReference Include="iOS\Frameworks\libavcodec.framework" Condition="Exists('iOS\Frameworks\libavcodec.framework')">
@@ -124,7 +123,6 @@
         <!-- iOS\Frameworks\libavutil.framework -->
         <None Include="iOS\Frameworks\libavutil.framework\libavutil" Condition="Exists('iOS\Frameworks\libavutil.framework')">
             <Link>iOS\Frameworks\libavutil.framework</Link>
-            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </None>
 
         <NativeReference Include="iOS\Frameworks\libavutil.framework" Condition="Exists('iOS\Frameworks\libavutil.framework')">
@@ -137,7 +135,6 @@
         <!-- iOS\Frameworks\mobileffmpeg.framework -->
         <None Include="iOS\Frameworks\mobileffmpeg.framework\mobileffmpeg" Condition="Exists('iOS\Frameworks\mobileffmpeg.framework')">
             <Link>iOS\Frameworks\mobileffmpeg.framework</Link>
-            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </None>
 
         <NativeReference Include="iOS\Frameworks\mobileffmpeg.framework" Condition="Exists('iOS\Frameworks\mobileffmpeg.framework')">
@@ -150,7 +147,6 @@
         <!-- iOS\Frameworks\libavformat.framework -->
         <None Include="iOS\Frameworks\libavformat.framework\libavformat" Condition="Exists('iOS\Frameworks\libavformat.framework')">
             <Link>iOS\Frameworks\libavformat.framework</Link>
-            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </None>
 
         <NativeReference Include="iOS\Frameworks\libavformat.framework" Condition="Exists('iOS\Frameworks\libavformat.framework')">
@@ -163,7 +159,6 @@
         <!-- iOS\Frameworks\snappy.framework -->
         <None Include="iOS\Frameworks\snappy.framework\snappy" Condition="Exists('iOS\Frameworks\snappy.framework')">
             <Link>iOS\Frameworks\snappy.framework</Link>
-            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </None>
 
         <NativeReference Include="iOS\Frameworks\snappy.framework" Condition="Exists('iOS\Frameworks\snappy.framework')">
@@ -176,7 +171,6 @@
         <!-- iOS\Frameworks\expat.framework -->
         <None Include="iOS\Frameworks\expat.framework\expat" Condition="Exists('iOS\Frameworks\expat.framework')">
             <Link>iOS\Frameworks\expat.framework</Link>
-            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </None>
 
         <NativeReference Include="iOS\Frameworks\expat.framework" Condition="Exists('iOS\Frameworks\expat.framework')">
@@ -188,7 +182,6 @@
         <!-- iOS\Frameworks\jpeg.framework -->
         <None Include="iOS\Frameworks\jpeg.framework\jpeg" Condition="Exists('iOS\Frameworks\jpeg.framework')">
             <Link>iOS\Frameworks\jpeg.framework</Link>
-            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </None>
 
         <NativeReference Include="iOS\Frameworks\jpeg.framework" Condition="Exists('iOS\Frameworks\jpeg.framework')">
@@ -200,7 +193,6 @@
         <!-- iOS\Frameworks\libavfilter.framework -->
         <None Include="iOS\Frameworks\libavfilter.framework\libavfilter" Condition="Exists('iOS\Frameworks\libavfilter.framework')">
             <Link>iOS\Frameworks\libavfilter.framework</Link>
-            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </None>
 
         <NativeReference Include="iOS\Frameworks\libavfilter.framework" Condition="Exists('iOS\Frameworks\libavfilter.framework')">
@@ -212,7 +204,6 @@
         <!-- iOS\Frameworks\libopencore-amrnb.framework -->
         <None Include="iOS\Frameworks\libopencore-amrnb.framework\libopencore-amrnb" Condition="Exists('iOS\Frameworks\libopencore-amrnb.framework')">
             <Link>iOS\Frameworks\libopencore-amrnb.framework</Link>
-            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </None>
 
         <NativeReference Include="iOS\Frameworks\libopencore-amrnb.framework" Condition="Exists('iOS\Frameworks\libopencore-amrnb.framework')">
@@ -224,7 +215,6 @@
         <!-- iOS\Frameworks\libtheoraenc.framework -->
         <None Include="iOS\Frameworks\libtheoraenc.framework\libtheoraenc" Condition="Exists('iOS\Frameworks\libtheoraenc.framework')">
             <Link>iOS\Frameworks\libtheoraenc.framework</Link>
-            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </None>
 
         <NativeReference Include="iOS\Frameworks\libtheoraenc.framework" Condition="Exists('iOS\Frameworks\libtheoraenc.framework')">
@@ -236,7 +226,6 @@
         <!-- iOS\Frameworks\libwebpdemux.framework -->
         <None Include="iOS\Frameworks\libwebpdemux.framework\libwebpdemux" Condition="Exists('iOS\Frameworks\libwebpdemux.framework')">
             <Link>iOS\Frameworks\libwebpdemux.framework</Link>
-            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </None>
 
         <NativeReference Include="iOS\Frameworks\libwebpdemux.framework" Condition="Exists('iOS\Frameworks\libwebpdemux.framework')">
@@ -248,7 +237,6 @@
         <!-- iOS\Frameworks\soxr.framework -->
         <None Include="iOS\Frameworks\soxr.framework\soxr" Condition="Exists('iOS\Frameworks\soxr.framework')">
             <Link>iOS\Frameworks\soxr.framework</Link>
-            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </None>
 
         <NativeReference Include="iOS\Frameworks\soxr.framework" Condition="Exists('iOS\Frameworks\soxr.framework')">
@@ -260,7 +248,6 @@
         <!-- iOS\Frameworks\x265.framework -->
         <None Include="iOS\Frameworks\x265.framework\x265" Condition="Exists('iOS\Frameworks\x265.framework')">
             <Link>iOS\Frameworks\x265.framework</Link>
-            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </None>
 
         <NativeReference Include="iOS\Frameworks\x265.framework" Condition="Exists('iOS\Frameworks\x265.framework')">
@@ -272,7 +259,6 @@
         <!-- iOS\Frameworks\fontconfig.framework -->
         <None Include="iOS\Frameworks\fontconfig.framework\fontconfig" Condition="Exists('iOS\Frameworks\fontconfig.framework')">
             <Link>iOS\Frameworks\fontconfig.framework</Link>
-            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </None>
 
         <NativeReference Include="iOS\Frameworks\fontconfig.framework" Condition="Exists('iOS\Frameworks\fontconfig.framework')">
@@ -284,7 +270,6 @@
         <!-- iOS\Frameworks\kvazaar.framework -->
         <None Include="iOS\Frameworks\kvazaar.framework\kvazaar" Condition="Exists('iOS\Frameworks\kvazaar.framework')">
             <Link>iOS\Frameworks\kvazaar.framework</Link>
-            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </None>
 
         <NativeReference Include="iOS\Frameworks\kvazaar.framework" Condition="Exists('iOS\Frameworks\kvazaar.framework')">
@@ -296,7 +281,6 @@
         <!-- iOS\Frameworks\libpng.framework -->
         <None Include="iOS\Frameworks\libpng.framework\libpng" Condition="Exists('iOS\Frameworks\libpng.framework')">
             <Link>iOS\Frameworks\libpng.framework</Link>
-            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </None>
 
         <NativeReference Include="iOS\Frameworks\libpng.framework" Condition="Exists('iOS\Frameworks\libpng.framework')">
@@ -308,7 +292,6 @@
         <!-- iOS\Frameworks\libvidstab.framework -->
         <None Include="iOS\Frameworks\libvidstab.framework\libvidstab" Condition="Exists('iOS\Frameworks\libvidstab.framework')">
             <Link>iOS\Frameworks\libvidstab.framework</Link>
-            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </None>
 
         <NativeReference Include="iOS\Frameworks\libvidstab.framework" Condition="Exists('iOS\Frameworks\libvidstab.framework')">
@@ -320,7 +303,6 @@
         <!-- iOS\Frameworks\libwebpmux.framework -->
         <None Include="iOS\Frameworks\libwebpmux.framework\libwebpmux" Condition="Exists('iOS\Frameworks\libwebpmux.framework')">
             <Link>iOS\Frameworks\libwebpmux.framework</Link>
-            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </None>
 
         <NativeReference Include="iOS\Frameworks\libwebpmux.framework" Condition="Exists('iOS\Frameworks\libwebpmux.framework')">
@@ -332,7 +314,6 @@
         <!-- iOS\Frameworks\speex.framework -->
         <None Include="iOS\Frameworks\speex.framework\speex" Condition="Exists('iOS\Frameworks\speex.framework')">
             <Link>iOS\Frameworks\speex.framework</Link>
-            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </None>
 
         <NativeReference Include="iOS\Frameworks\speex.framework" Condition="Exists('iOS\Frameworks\speex.framework')">
@@ -344,7 +325,6 @@
         <!-- iOS\Frameworks\xvidcore.framework -->
         <None Include="iOS\Frameworks\xvidcore.framework\xvidcore" Condition="Exists('iOS\Frameworks\xvidcore.framework')">
             <Link>iOS\Frameworks\xvidcore.framework</Link>
-            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </None>
 
         <NativeReference Include="iOS\Frameworks\xvidcore.framework" Condition="Exists('iOS\Frameworks\xvidcore.framework')">
@@ -356,7 +336,6 @@
         <!-- iOS\Frameworks\freetype.framework -->
         <None Include="iOS\Frameworks\freetype.framework\freetype" Condition="Exists('iOS\Frameworks\freetype.framework')">
             <Link>iOS\Frameworks\freetype.framework</Link>
-            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </None>
 
         <NativeReference Include="iOS\Frameworks\freetype.framework" Condition="Exists('iOS\Frameworks\freetype.framework')">
@@ -368,7 +347,6 @@
         <!-- iOS\Frameworks\lame.framework -->
         <None Include="iOS\Frameworks\lame.framework\lame" Condition="Exists('iOS\Frameworks\lame.framework')">
             <Link>iOS\Frameworks\lame.framework</Link>
-            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </None>
 
         <NativeReference Include="iOS\Frameworks\lame.framework" Condition="Exists('iOS\Frameworks\lame.framework')">
@@ -380,7 +358,6 @@
         <!-- iOS\Frameworks\libsndfile.framework -->
         <None Include="iOS\Frameworks\libsndfile.framework\libsndfile" Condition="Exists('iOS\Frameworks\libsndfile.framework')">
             <Link>iOS\Frameworks\libsndfile.framework</Link>
-            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </None>
 
         <NativeReference Include="iOS\Frameworks\libsndfile.framework" Condition="Exists('iOS\Frameworks\libsndfile.framework')">
@@ -392,7 +369,6 @@
         <!-- iOS\Frameworks\libvorbis.framework -->
         <None Include="iOS\Frameworks\libvorbis.framework\libvorbis" Condition="Exists('iOS\Frameworks\libvorbis.framework')">
             <Link>iOS\Frameworks\libvorbis.framework</Link>
-            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </None>
 
         <NativeReference Include="iOS\Frameworks\libvorbis.framework" Condition="Exists('iOS\Frameworks\libvorbis.framework')">
@@ -404,7 +380,6 @@
         <!-- iOS\Frameworks\libxml2.framework -->
         <None Include="iOS\Frameworks\libxml2.framework\libxml2" Condition="Exists('iOS\Frameworks\libxml2.framework')">
             <Link>iOS\Frameworks\libxml2.framework</Link>
-            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </None>
 
         <NativeReference Include="iOS\Frameworks\libxml2.framework" Condition="Exists('iOS\Frameworks\libxml2.framework')">
@@ -416,7 +391,6 @@
         <!-- iOS\Frameworks\tiff.framework -->
         <None Include="iOS\Frameworks\tiff.framework\tiff" Condition="Exists('iOS\Frameworks\tiff.framework')">
             <Link>iOS\Frameworks\tiff.framework</Link>
-            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </None>
 
         <NativeReference Include="iOS\Frameworks\tiff.framework" Condition="Exists('iOS\Frameworks\tiff.framework')">
@@ -428,7 +402,6 @@
         <!-- iOS\Frameworks\fribidi.framework -->
         <None Include="iOS\Frameworks\fribidi.framework\fribidi" Condition="Exists('iOS\Frameworks\fribidi.framework')">
             <Link>iOS\Frameworks\fribidi.framework</Link>
-            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </None>
 
         <NativeReference Include="iOS\Frameworks\fribidi.framework" Condition="Exists('iOS\Frameworks\fribidi.framework')">
@@ -440,7 +413,6 @@
         <!-- iOS\Frameworks\libaom.framework -->
         <None Include="iOS\Frameworks\libaom.framework\libaom" Condition="Exists('iOS\Frameworks\libaom.framework')">
             <Link>iOS\Frameworks\libaom.framework</Link>
-            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </None>
 
         <NativeReference Include="iOS\Frameworks\libaom.framework" Condition="Exists('iOS\Frameworks\libaom.framework')">
@@ -452,7 +424,6 @@
         <!-- iOS\Frameworks\libhogweed.framework -->
         <None Include="iOS\Frameworks\libhogweed.framework\libhogweed" Condition="Exists('iOS\Frameworks\libhogweed.framework')">
             <Link>iOS\Frameworks\libhogweed.framework</Link>
-            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </None>
 
         <NativeReference Include="iOS\Frameworks\libhogweed.framework" Condition="Exists('iOS\Frameworks\libhogweed.framework')">
@@ -464,7 +435,6 @@
         <!-- iOS\Frameworks\libswresample.framework -->
         <None Include="iOS\Frameworks\libswresample.framework\libswresample" Condition="Exists('iOS\Frameworks\libswresample.framework')">
             <Link>iOS\Frameworks\libswresample.framework</Link>
-            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </None>
 
         <NativeReference Include="iOS\Frameworks\libswresample.framework" Condition="Exists('iOS\Frameworks\libswresample.framework')">
@@ -476,7 +446,6 @@
         <!-- iOS\Frameworks\libvorbisenc.framework -->
         <None Include="iOS\Frameworks\libvorbisenc.framework\libvorbisenc" Condition="Exists('iOS\Frameworks\libvorbisenc.framework')">
             <Link>iOS\Frameworks\libvorbisenc.framework</Link>
-            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </None>
 
         <NativeReference Include="iOS\Frameworks\libvorbisenc.framework" Condition="Exists('iOS\Frameworks\libvorbisenc.framework')">
@@ -488,7 +457,6 @@
         <!-- iOS\Frameworks\twolame.framework -->
         <None Include="iOS\Frameworks\twolame.framework\twolame" Condition="Exists('iOS\Frameworks\twolame.framework')">
             <Link>iOS\Frameworks\twolame.framework</Link>
-            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </None>
 
         <NativeReference Include="iOS\Frameworks\twolame.framework" Condition="Exists('iOS\Frameworks\twolame.framework')">
@@ -500,7 +468,6 @@
         <!-- iOS\Frameworks\giflib.framework -->
         <None Include="iOS\Frameworks\giflib.framework\giflib" Condition="Exists('iOS\Frameworks\giflib.framework')">
             <Link>iOS\Frameworks\giflib.framework</Link>
-            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </None>
 
         <NativeReference Include="iOS\Frameworks\giflib.framework" Condition="Exists('iOS\Frameworks\giflib.framework')">
@@ -512,7 +479,6 @@
         <!-- iOS\Frameworks\libass.framework -->
         <None Include="iOS\Frameworks\libass.framework\libass" Condition="Exists('iOS\Frameworks\libass.framework')">
             <Link>iOS\Frameworks\libass.framework</Link>
-            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </None>
 
         <NativeReference Include="iOS\Frameworks\libass.framework" Condition="Exists('iOS\Frameworks\libass.framework')">
@@ -524,7 +490,6 @@
         <!-- iOS\Frameworks\libilbc.framework -->
         <None Include="iOS\Frameworks\libilbc.framework\libilbc" Condition="Exists('iOS\Frameworks\libilbc.framework')">
             <Link>iOS\Frameworks\libilbc.framework</Link>
-            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </None>
 
         <NativeReference Include="iOS\Frameworks\libilbc.framework" Condition="Exists('iOS\Frameworks\libilbc.framework')">
@@ -536,7 +501,6 @@
         <!-- iOS\Frameworks\libswscale.framework -->
         <None Include="iOS\Frameworks\libswscale.framework\libswscale" Condition="Exists('iOS\Frameworks\libswscale.framework')">
             <Link>iOS\Frameworks\libswscale.framework</Link>
-            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </None>
 
         <NativeReference Include="iOS\Frameworks\libswscale.framework" Condition="Exists('iOS\Frameworks\libswscale.framework')">
@@ -548,7 +512,6 @@
         <!-- iOS\Frameworks\libvorbisfile.framework -->
         <None Include="iOS\Frameworks\libvorbisfile.framework\libvorbisfile" Condition="Exists('iOS\Frameworks\libvorbisfile.framework')">
             <Link>iOS\Frameworks\libvorbisfile.framework</Link>
-            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </None>
 
         <NativeReference Include="iOS\Frameworks\libvorbisfile.framework" Condition="Exists('iOS\Frameworks\libvorbisfile.framework')">
@@ -560,7 +523,6 @@
         <!-- iOS\Frameworks\opus.framework -->
         <None Include="iOS\Frameworks\opus.framework\opus" Condition="Exists('iOS\Frameworks\opus.framework')">
             <Link>iOS\Frameworks\opus.framework</Link>
-            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </None>
 
         <NativeReference Include="iOS\Frameworks\opus.framework" Condition="Exists('iOS\Frameworks\opus.framework')">
@@ -572,7 +534,6 @@
         <!-- iOS\Frameworks\vo-amrwbenc.framework -->
         <None Include="iOS\Frameworks\vo-amrwbenc.framework\vo-amrwbenc" Condition="Exists('iOS\Frameworks\vo-amrwbenc.framework')">
             <Link>iOS\Frameworks\vo-amrwbenc.framework</Link>
-            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </None>
 
         <NativeReference Include="iOS\Frameworks\vo-amrwbenc.framework" Condition="Exists('iOS\Frameworks\vo-amrwbenc.framework')">
@@ -584,7 +545,6 @@
         <!-- iOS\Frameworks\gmp.framework -->
         <None Include="iOS\Frameworks\gmp.framework\gmp" Condition="Exists('iOS\Frameworks\gmp.framework')">
             <Link>iOS\Frameworks\gmp.framework</Link>
-            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </None>
 
         <NativeReference Include="iOS\Frameworks\gmp.framework" Condition="Exists('iOS\Frameworks\gmp.framework')">
@@ -596,7 +556,6 @@
         <!-- iOS\Frameworks\libnettle.framework -->
         <None Include="iOS\Frameworks\libnettle.framework\libnettle" Condition="Exists('iOS\Frameworks\libnettle.framework')">
             <Link>iOS\Frameworks\libnettle.framework</Link>
-            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </None>
 
         <NativeReference Include="iOS\Frameworks\libnettle.framework" Condition="Exists('iOS\Frameworks\libnettle.framework')">
@@ -608,7 +567,6 @@
         <!-- iOS\Frameworks\libtheora.framework -->
         <None Include="iOS\Frameworks\libtheora.framework\libtheora" Condition="Exists('iOS\Frameworks\libtheora.framework')">
             <Link>iOS\Frameworks\libtheora.framework</Link>
-            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </None>
 
         <NativeReference Include="iOS\Frameworks\libtheora.framework" Condition="Exists('iOS\Frameworks\libtheora.framework')">
@@ -620,7 +578,6 @@
         <!-- iOS\Frameworks\libvpx.framework -->
         <None Include="iOS\Frameworks\libvpx.framework\libvpx" Condition="Exists('iOS\Frameworks\libvpx.framework')">
             <Link>iOS\Frameworks\libvpx.framework</Link>
-            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </None>
 
         <NativeReference Include="iOS\Frameworks\libvpx.framework" Condition="Exists('iOS\Frameworks\libvpx.framework')">
@@ -632,7 +589,6 @@
         <!-- iOS\Frameworks\shine.framework -->
         <None Include="iOS\Frameworks\shine.framework\shine" Condition="Exists('iOS\Frameworks\shine.framework')">
             <Link>iOS\Frameworks\shine.framework</Link>
-            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </None>
 
         <NativeReference Include="iOS\Frameworks\shine.framework" Condition="Exists('iOS\Frameworks\shine.framework')">
@@ -644,7 +600,6 @@
         <!-- iOS\Frameworks\wavpack.framework -->
         <None Include="iOS\Frameworks\wavpack.framework\wavpack" Condition="Exists('iOS\Frameworks\wavpack.framework')">
             <Link>iOS\Frameworks\wavpack.framework</Link>
-            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </None>
 
         <NativeReference Include="iOS\Frameworks\wavpack.framework" Condition="Exists('iOS\Frameworks\wavpack.framework')">
@@ -656,7 +611,6 @@
         <!-- iOS\Frameworks\gnutls.framework -->
         <None Include="iOS\Frameworks\gnutls.framework\gnutls" Condition="Exists('iOS\Frameworks\gnutls.framework')">
             <Link>iOS\Frameworks\gnutls.framework</Link>
-            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </None>
 
         <NativeReference Include="iOS\Frameworks\gnutls.framework" Condition="Exists('iOS\Frameworks\gnutls.framework')">
@@ -668,7 +622,6 @@
         <!-- iOS\Frameworks\libavdevice.framework -->
         <None Include="iOS\Frameworks\libavdevice.framework\libavdevice" Condition="Exists('iOS\Frameworks\libavdevice.framework')">
             <Link>iOS\Frameworks\libavdevice.framework</Link>
-            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </None>
 
         <NativeReference Include="iOS\Frameworks\libavdevice.framework" Condition="Exists('iOS\Frameworks\libavdevice.framework')">
@@ -680,7 +633,6 @@
         <!-- iOS\Frameworks\libogg.framework -->
         <None Include="iOS\Frameworks\libogg.framework\libogg" Condition="Exists('iOS\Frameworks\libogg.framework')">
             <Link>iOS\Frameworks\libogg.framework</Link>
-            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </None>
 
         <NativeReference Include="iOS\Frameworks\libogg.framework" Condition="Exists('iOS\Frameworks\libogg.framework')">
@@ -692,7 +644,6 @@
         <!-- iOS\Frameworks\libtheoradec.framework -->
         <None Include="iOS\Frameworks\libtheoradec.framework\libtheoradec" Condition="Exists('iOS\Frameworks\libtheoradec.framework')">
             <Link>iOS\Frameworks\libtheoradec.framework</Link>
-            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </None>
 
         <NativeReference Include="iOS\Frameworks\libtheoradec.framework" Condition="Exists('iOS\Frameworks\libtheoradec.framework')">
@@ -704,7 +655,6 @@
         <!-- iOS\Frameworks\libwebp.framework -->
         <None Include="iOS\Frameworks\libwebp.framework\libwebp" Condition="Exists('iOS\Frameworks\libwebp.framework')">
             <Link>iOS\Frameworks\libwebp.framework</Link>
-            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </None>
 
         <NativeReference Include="iOS\Frameworks\libwebp.framework" Condition="Exists('iOS\Frameworks\libwebp.framework')">
@@ -716,7 +666,6 @@
         <!-- iOS\Frameworks\x264.framework -->
         <None Include="iOS\Frameworks\x264.framework\x264" Condition="Exists('iOS\Frameworks\x264.framework')">
             <Link>iOS\Frameworks\x264.framework</Link>
-            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </None>
 
         <NativeReference Include="iOS\Frameworks\x264.framework" Condition="Exists('iOS\Frameworks\x264.framework')">
@@ -726,16 +675,15 @@
         </NativeReference>
     </ItemGroup>
 
- 
-    <!-- INCLUDED PACKAGES
+    <!-- Documentation -->
     <PropertyGroup>
-        <iOSPackageVersion>4.4.43</iOSPackageVersion>
-        <AndroidPackageVersion>4.4.21</AndroidPackageVersion>
+        <!-- warning CS1591: Missing XML comment for publicly visible type or member. -->
+        <MSBuildWarningsAsMessages>$(MSBuildWarningsAsMessages);CS1591</MSBuildWarningsAsMessages>
+        <GenerateDocumentationFile>true</GenerateDocumentationFile>
+        <DocumentationFile>$(RootNamespace).doc.xml</DocumentationFile>
+        <DocumentationMarkdown>$(RootNamespace).doc.md</DocumentationMarkdown>
     </PropertyGroup>
-    <ItemGroup Condition="'$(TargetFramework)' == 'Xamarin.iOS10'">
-        <PackageReference Include="Laerdal.Xamarin.FFmpeg.iOS.$(NugetPackageVariantName)" Version="$(iOSPackageVersion)" />
+    <ItemGroup>
+        <PackageReference Include="Vsxmd" Version="1.4.4" PrivateAssets="all" />
     </ItemGroup>
-    <ItemGroup Condition="'$(TargetFramework)' == 'MonoAndroid10.0'">
-        <PackageReference Include="Laerdal.Xamarin.FFmpeg.Android.$(NugetPackageVariantName)" Version="$(AndroidPackageVersion)" />
-    </ItemGroup> -->
 </Project>
