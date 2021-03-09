@@ -62,8 +62,8 @@ echo ""
 github_tag_name=`cat $github_info_file | grep '"tag_name":' | sed -E 's/.*"([^"]+)".*/\1/' | sed 's/v//'`
 
 # Static configuration
-nuget_project_folder="Laerdal.Xamarin.FFmpeg"
-nuget_project_name="Laerdal.Xamarin.FFmpeg"
+nuget_project_folder="Laerdal.FFmpeg"
+nuget_project_name="Laerdal.FFmpeg"
 nuget_output_folder="$nuget_project_name.Output"
 nuget_csproj_path="$nuget_project_folder/$nuget_project_name.csproj"
 

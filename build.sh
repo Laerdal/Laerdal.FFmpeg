@@ -1,6 +1,6 @@
 #!/bin/bash
 
-nuget_project_name="Laerdal.Xamarin.FFmpeg"
+nuget_project_name="Laerdal.FFmpeg"
 nuget_output_folder="$nuget_project_name.Output"
 
 usage(){

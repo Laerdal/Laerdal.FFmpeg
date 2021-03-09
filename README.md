@@ -1,23 +1,23 @@
-# Laerdal.Xamarin.FFmpeg
+# Laerdal.FFmpeg
 
-> Xamarin.iOS package : <https://github.com/Laerdal/Laerdal.Xamarin.FFmpeg.iOS>
+> Xamarin.iOS package : <https://github.com/Laerdal/Laerdal.FFmpeg.iOS>
 >
-> Xamarin.Android package : <https://github.com/Laerdal/Laerdal.Xamarin.FFmpeg.Android>
+> Xamarin.Android package : <https://github.com/Laerdal/Laerdal.FFmpeg.Android>
 
 Xamarin binding library around @tanersener's Mobile-FFmpeg library.
 
 The native Android and iOS libraries can be found here: <https://github.com/tanersener/mobile-ffmpeg>
 
-| Mobile FFmpeg Package | Laerdal.Xamarin.FFmpeg |
+| Mobile FFmpeg Package | Laerdal.FFmpeg |
 |     :----    |     :----:    |
-| Audio | [![NuGet Badge](https://buildstats.info/nuget/Laerdal.Xamarin.FFmpeg.Audio)](https://www.nuget.org/packages/Laerdal.Xamarin.FFmpeg.Audio/) |
-| Full | [![NuGet Badge](https://buildstats.info/nuget/Laerdal.Xamarin.FFmpeg.Full)](https://www.nuget.org/packages/Laerdal.Xamarin.FFmpeg.Full/) |
-| Full.Gpl | [![NuGet Badge](https://buildstats.info/nuget/Laerdal.Xamarin.FFmpeg.Full.Gpl)](https://www.nuget.org/packages/Laerdal.Xamarin.FFmpeg.Full.Gpl/) |
-| Https | [![NuGet Badge](https://buildstats.info/nuget/Laerdal.Xamarin.FFmpeg.Https)](https://www.nuget.org/packages/Laerdal.Xamarin.FFmpeg.Https/) |
-| Https.Gpl | [![NuGet Badge](https://buildstats.info/nuget/Laerdal.Xamarin.FFmpeg.Https.Gpl)](https://www.nuget.org/packages/Laerdal.Xamarin.FFmpeg.Https.Gpl/) |
-| Min | [![NuGet Badge](https://buildstats.info/nuget/Laerdal.Xamarin.FFmpeg.Min)](https://www.nuget.org/packages/Laerdal.Xamarin.FFmpeg.Min/) |
-| Min.Gpl | [![NuGet Badge](https://buildstats.info/nuget/Laerdal.Xamarin.FFmpeg.Min.Gpl)](https://www.nuget.org/packages/Laerdal.Xamarin.FFmpeg.Min.Gpl/) |
-| Video | [![NuGet Badge](https://buildstats.info/nuget/Laerdal.Xamarin.FFmpeg.Video)](https://www.nuget.org/packages/Laerdal.Xamarin.FFmpeg.Video/) |
+| Audio | [![NuGet Badge](https://buildstats.info/nuget/Laerdal.FFmpeg.Audio)](https://www.nuget.org/packages/Laerdal.FFmpeg.Audio/) |
+| Full | [![NuGet Badge](https://buildstats.info/nuget/Laerdal.FFmpeg.Full)](https://www.nuget.org/packages/Laerdal.FFmpeg.Full/) |
+| Full.Gpl | [![NuGet Badge](https://buildstats.info/nuget/Laerdal.FFmpeg.Full.Gpl)](https://www.nuget.org/packages/Laerdal.FFmpeg.Full.Gpl/) |
+| Https | [![NuGet Badge](https://buildstats.info/nuget/Laerdal.FFmpeg.Https)](https://www.nuget.org/packages/Laerdal.FFmpeg.Https/) |
+| Https.Gpl | [![NuGet Badge](https://buildstats.info/nuget/Laerdal.FFmpeg.Https.Gpl)](https://www.nuget.org/packages/Laerdal.FFmpeg.Https.Gpl/) |
+| Min | [![NuGet Badge](https://buildstats.info/nuget/Laerdal.FFmpeg.Min)](https://www.nuget.org/packages/Laerdal.FFmpeg.Min/) |
+| Min.Gpl | [![NuGet Badge](https://buildstats.info/nuget/Laerdal.FFmpeg.Min.Gpl)](https://www.nuget.org/packages/Laerdal.FFmpeg.Min.Gpl/) |
+| Video | [![NuGet Badge](https://buildstats.info/nuget/Laerdal.FFmpeg.Video)](https://www.nuget.org/packages/Laerdal.FFmpeg.Video/) |
 
 ## External libraries
 
@@ -51,8 +51,8 @@ Simply add the Nuget package you want into **ALL** of your Xamarin projects (Sha
 
 ## Folder structure
 
-- Laerdal.Xamarin.FFmpeg = Xamarin Nuget Library project and nuget files
-- Laerdal.Xamarin.FFmpeg.Output = Build output from building *Laerdal.Xamarin.FFmpeg*
+- Laerdal.FFmpeg = Xamarin Nuget Library project and nuget files
+- Laerdal.FFmpeg.Output = Build output from building *Laerdal.FFmpeg*
 
 ## Local build
 
@@ -61,7 +61,7 @@ Simply add the Nuget package you want into **ALL** of your Xamarin projects (Sha
 #### 1) Checkout
 
 ```bash
-git clone https://github.com/Laerdal/Laerdal.Xamarin.FFmpeg.git
+git clone https://github.com/Laerdal/Laerdal.FFmpeg.git
 ```
 
 #### 2) Run build script
