@@ -117,7 +117,7 @@
             <Kind>Framework</Kind>
             <SmartLink>True</SmartLink>
             <ForceLoad>True</ForceLoad>
-            <Frameworks>AudioToolbox VideoToolbox CoreVideo</Frameworks>
+            <Frameworks>AudioToolbox VideoToolbox CoreVideo CoreMedia</Frameworks>
         </NativeReference>
 
         <!-- iOS\Frameworks\libavutil.framework -->
@@ -129,7 +129,7 @@
             <Kind>Framework</Kind>
             <SmartLink>True</SmartLink>
             <ForceLoad>True</ForceLoad>
-            <Frameworks>VideoToolbox CoreVideo</Frameworks>
+            <Frameworks>VideoToolbox CoreVideo CoreMedia</Frameworks>
         </NativeReference>
 
         <!-- iOS\Frameworks\mobileffmpeg.framework -->
