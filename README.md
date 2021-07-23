@@ -24,13 +24,13 @@ The native Android and iOS libraries can be found here: <https://github.com/tane
 | Package | External libraries |
 |     :----    | :----: |
 | Audio | lame libilbc libvorbis opencore-amr opus shine soxr speex twolame vo-amrwbenc wavpack |
-| Full | fontconfig freetype fribidi gmp gnutls kvazaar lame libaom libass libiconv libilbc libtheora libvorbis libvpx libwebp libxml2 opencore-amr opus shine snappy soxr speex twolame vo-amrwbenc wavpack |
-| Full.Gpl | fontconfig freetype fribidi gmp gnutls kvazaar lame libaom libass libiconv libilbc libtheora libvorbis libvpx libwebp libxml2 opencore-amr opus shine snappy soxr speex twolame vid.stab vo-amrwbenc wavpack x264 x265 xvidcore |
+| Full | fontconfig freetype fribidi gmp gnutls kvazaar lame libaom libass libiconv libilbc libtheora libvorbis libvpx libxml2 opencore-amr opus shine snappy soxr speex twolame vo-amrwbenc wavpack |
+| Full.Gpl | fontconfig freetype fribidi gmp gnutls kvazaar lame libaom libass libiconv libilbc libtheora libvorbis libvpx libxml2 opencore-amr opus shine snappy soxr speex twolame vid.stab vo-amrwbenc wavpack x264 x265 xvidcore |
 | Https | gmp gnutls |
 | Https.Gpl | gmp gnutls vid.stab x264 x265 xvidcore |
 | Min | - |
 | Min.Gpl | vid.stab x264 x265 xvidcore |
-| Video | fontconfig freetype fribidi kvazaar libaom libass libiconv libtheora libvpx libwebp snappy |
+| Video | fontconfig freetype fribidi kvazaar libaom libass libiconv libtheora libvpx snappy |
 
 ## How to use
 
