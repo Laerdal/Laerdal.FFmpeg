@@ -223,17 +223,6 @@
             <ForceLoad>True</ForceLoad>
         </NativeReference>
 
-        <!-- iOS\Frameworks\libwebpdemux.framework -->
-        <None Include="iOS\Frameworks\libwebpdemux.framework\libwebpdemux" Condition="Exists('iOS\Frameworks\libwebpdemux.framework')">
-            <Link>iOS\Frameworks\libwebpdemux.framework</Link>
-        </None>
-
-        <NativeReference Include="iOS\Frameworks\libwebpdemux.framework" Condition="Exists('iOS\Frameworks\libwebpdemux.framework')">
-            <Kind>Framework</Kind>
-            <SmartLink>True</SmartLink>
-            <ForceLoad>True</ForceLoad>
-        </NativeReference>
-
         <!-- iOS\Frameworks\soxr.framework -->
         <None Include="iOS\Frameworks\soxr.framework\soxr" Condition="Exists('iOS\Frameworks\soxr.framework')">
             <Link>iOS\Frameworks\soxr.framework</Link>
@@ -295,17 +284,6 @@
         </None>
 
         <NativeReference Include="iOS\Frameworks\libvidstab.framework" Condition="Exists('iOS\Frameworks\libvidstab.framework')">
-            <Kind>Framework</Kind>
-            <SmartLink>True</SmartLink>
-            <ForceLoad>True</ForceLoad>
-        </NativeReference>
-
-        <!-- iOS\Frameworks\libwebpmux.framework -->
-        <None Include="iOS\Frameworks\libwebpmux.framework\libwebpmux" Condition="Exists('iOS\Frameworks\libwebpmux.framework')">
-            <Link>iOS\Frameworks\libwebpmux.framework</Link>
-        </None>
-
-        <NativeReference Include="iOS\Frameworks\libwebpmux.framework" Condition="Exists('iOS\Frameworks\libwebpmux.framework')">
             <Kind>Framework</Kind>
             <SmartLink>True</SmartLink>
             <ForceLoad>True</ForceLoad>
@@ -647,17 +625,6 @@
         </None>
 
         <NativeReference Include="iOS\Frameworks\libtheoradec.framework" Condition="Exists('iOS\Frameworks\libtheoradec.framework')">
-            <Kind>Framework</Kind>
-            <SmartLink>True</SmartLink>
-            <ForceLoad>True</ForceLoad>
-        </NativeReference>
-
-        <!-- iOS\Frameworks\libwebp.framework -->
-        <None Include="iOS\Frameworks\libwebp.framework\libwebp" Condition="Exists('iOS\Frameworks\libwebp.framework')">
-            <Link>iOS\Frameworks\libwebp.framework</Link>
-        </None>
-
-        <NativeReference Include="iOS\Frameworks\libwebp.framework" Condition="Exists('iOS\Frameworks\libwebp.framework')">
             <Kind>Framework</Kind>
             <SmartLink>True</SmartLink>
             <ForceLoad>True</ForceLoad>
