@@ -32,6 +32,9 @@ The native Android and iOS libraries can be found here: <https://github.com/tane
 | Min.Gpl | vid.stab x264 x265 xvidcore |
 | Video | fontconfig freetype fribidi kvazaar libaom libass libiconv libtheora libvpx snappy |
 
+> **Known limitation:**
+> Due to issue with webp.framework on Xamarin iOS on linking stage we temporary removed it from usage
+
 ## How to use
 
 Simply add the Nuget package you want into **ALL** of your Xamarin projects (Shared, iOS and Android). On iOS it will depend on the iOS package and on iOS it will depend on the Android package.
